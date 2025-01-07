@@ -2,16 +2,22 @@
 LIGHT_CYAN='\033[1;36m'
 RED='\033[31m'
 NC='\033[0m'
+YELLOW='\033[1;33m'
 
 log() {
-    echo >&2 "${LIGHT_CYAN}${1}${NC}"
+    printf "${LIGHT_CYAN}${1}${NC}\n" >&2
 }
 
 throw() {
-    echo >&2 "${RED}${1}. Exiting...${NC}"
+    printf "${RED}${1}. Exiting...${NC}\n" >&2 
     exit 1
 }
 
+warn() {
+    printf "${YELLOW}⚠️ ${1}${NC}\n" >&2 
+}
+
 ret() {
-    echo $1
+    printf %s "${1}"
+    printf "\n" >&2
 }
