@@ -17,6 +17,6 @@ fi
 
 echo "Installation complete! The profile will be automatically reloaded."
 
-source "$USER_PROFILE"
+exec bash
 
 log "We are ready to go! (See, the message is already nicer)"
