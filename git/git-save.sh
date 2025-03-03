@@ -7,7 +7,7 @@ fi
 log "Adding all files to git (git add -A)"
 git add -A
 
-log "Commiting changes (git commit -m \"$1\")"
+log "Commiting changes (git commit -m \"${1}\")"
 git commit -m "$1"
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
