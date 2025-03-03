@@ -6,7 +6,7 @@ $COMMAND
 
 COMMAND="git commit -m \"$1\""
 log "Executing '$COMMAND' (commiting changes to the current branch)"
-$COMMAND
+git commit -m "$1"
 
 
 # git add -A && 
