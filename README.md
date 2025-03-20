@@ -2,12 +2,12 @@
 
 A project with a goal to make your shell experience nicer.
 
-The fundament of the project is a few handy functions from `.sh` file:
+The fundament of the project is a few handy functions from the `.sh` file:
 
-- `log` - prints a message in blue in `stderr` (not captured in result)
-- `ret` - sends a message to `stdout`, new line to `stderr` and exits succesfully
+- `log` - prints a message in blue in `stderr` (not captured in the result)
+- `ret` - sends a message to `stdout`, a new line to `stderr`, and exits successfully
 - `throw` - prints a message in red in `stderr` and exits with error
-- `warn` - prints a message in yellow with warning sign to `stderr`
+- `warn` - prints a message in yellow with a warning sign to `stderr`
 
 Those functions should be sourced. Here's a simple line to source the functions for the current shell:
 
@@ -15,7 +15,7 @@ Those functions should be sourced. Here's a simple line to source the functions 
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 ```
 
-And here's what result of using those functions might look like:
+And here's what the result of using those functions might look like:
 
 ![](example-demo.png)
 
@@ -37,13 +37,13 @@ do_hard_work() {
     ret "much stuff"
 
     warn "Don't repeat at home! Oh, no one is listening..."
-    throw "falled dead, but no one noticed"
+    throw "fell dead, but no one noticed"
 }
 
 do_stupid_work() {
-    warn "doing stupid stuff... don't repeat at home!"
+    warn "doing stupid stuff... don't repeat it at home!"
     
-    throw "falled dead!"
+    throw "fell dead!"
 }
 
 results=$(do_light_work)
