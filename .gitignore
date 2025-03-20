@@ -2,3 +2,4 @@ inbox.md
 playground.*
 bin/
 obj/
+.DS_Store
