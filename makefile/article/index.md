@@ -1,6 +1,8 @@
 # Makefile: A Comprehensive Guide with Examples for .NET and Beyond
 
-> Learn `make` util with a practical example of a C# project with Docker.
+> Learn `make` util with a practical example of a C# project.
+
+![](thumb.png)
 
 Not that far ago, I learned about the `make` utility and the `Makefile`. Although that util is very old by computer science standards (1977), it is still extremely helpful today in 2025! In this article, I want to share with you my findings about this utility and give you an example of how to use it with a modern project.
 
