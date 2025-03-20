@@ -110,7 +110,7 @@ One more `make` command in our chest. Let's fix the buggy one in the next sectio
 
 ## Fixing our `rurl` Command: Making it Work with Job Control
 
-As you may remeber our initial implementation of `rurl` failed because `make` util creates non-interactive shell. We can overcome this by running another shell inside the `make` shell and making it interactive!
+As you may remember, our initial implementation of `rurl` failed because `make` util creates a non-interactive shell. We can overcome this by running another shell inside the `make` shell and making it interactive!
 
 If it sounds rough for you like it did for me, don't worry! We'll just need to wrap our command with `bash -c -i` (with `-i` making our subshell interactive). Here's the updated command:
 
@@ -123,11 +123,11 @@ And here's what we will get from running it:
 
 ![](rurl-demo.gif)
 
-We were able to successfully test our API, returning it back to the main thread. However, right now it looks pretty ugly, since `curl` prints the result unformatted and don't add a line break, so everything looks kind of messy. Let's fix it in the next section.
+We were able to successfully test our API, returning it back to the main thread. However, right now it looks pretty ugly, since `curl` prints the result unformatted and doesn't add a line break, so everything looks kind of messy. Let's fix it in the next section.
 
 ## Using Httpyac to Make It Beautiful
 
-There's a much prettier alternative to curl - the tool is called `httpyac`. I've wrote a [dedicated article](https://medium.com/@vosarat1995/best-postman-alternative-5890e3e9ddc7) about it, but what the way we use it in this article should be intutively clean without any additional preparation. Yet to follow the steps in the tutorial you would need to [install the httpyac CLI](https://httpyac.github.io/guide/installation_cli) (don't worry it's very simple).
+There's a much prettier alternative to curl - the tool is called `httpyac`. I've written a [dedicated article](https://medium.com/@vosarat1995/best-postman-alternative-5890e3e9ddc7) about it, but what the way we use it in this article should be intuitively clean without any additional preparation. Yet to follow the steps in the tutorial you would need to [install the httpyac CLI](https://httpyac.github.io/guide/installation_cli) (don't worry it's very simple).
 
 We'll start by creating a `.http` file:
 
@@ -163,7 +163,7 @@ This command finalizes the article, let's just do a quick recap and call it a da
 
 ## Recap
 
-In this article, we've created a `Makefile` for running a ASP .NET Core application and executing a test request against it, all in one shell. Here's how the file looks in assemblance:
+In this article, we've created a `Makefile` for running an ASP .NET Core application and executing a test request against it, all in one shell. Here's how the file looks assembled:
 
 ```makefile
 run:
@@ -188,6 +188,6 @@ kill:
 	kill `lsof -t -i:5154`
 ```
 
-The article and the playground are parts of the [nice-shell repository](https://github.com/astorDev/nice-shell), trying to help your shell experience nicer. Don't hesitate to give the repository a star! ⭐
+The article and the playground are parts of the [nice-shell repository](https://github.com/astorDev/nice-shell), trying to help your shell experience be nicer. Don't hesitate to give the repository a star! ⭐
 
 Claps for this article are also appreciated! 😊
