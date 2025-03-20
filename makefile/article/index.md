@@ -110,42 +110,60 @@ One more `make` command in our chest. Let's fix the buggy one in the next sectio
 
 ## Fixing our `rurl` Command: Making it Work with Job Control
 
-`bash -c -i`
+As you may remember, our initial implementation of `rurl` failed because `make` util creates a non-interactive shell. We can overcome this by running another shell inside the `make` shell and making it interactive!
+
+If it sounds rough for you like it did for me, don't worry! We'll just need to wrap our command with `bash -c -i` (with `-i` making our subshell interactive). Here's the updated command:
 
 ```makefile
 rurl:
 	bash -c -i 'make run & sleep 2 && make curl && fg'
 ```
 
+And here's what we will get from running it:
+
 ![](rurl-demo.gif)
+
+We were able to successfully test our API, returning it back to the main thread. However, right now it looks pretty ugly, since `curl` prints the result unformatted and doesn't add a line break, so everything looks kind of messy. Let's fix it in the next section.
 
 ## Using Httpyac to Make It Beautiful
 
-[article](https://medium.com/@vosarat1995/best-postman-alternative-5890e3e9ddc7) [Install the httpyac CLI](https://httpyac.github.io/guide/installation_cli).
+There's a much prettier alternative to curl - the tool is called `httpyac`. I've written a [dedicated article](https://medium.com/@vosarat1995/best-postman-alternative-5890e3e9ddc7) about it, but what the way we use it in this article should be intuitively clean without any additional preparation. Yet to follow the steps in the tutorial you would need to [install the httpyac CLI](https://httpyac.github.io/guide/installation_cli) (don't worry it's very simple).
 
-`.http`:
+We'll start by creating a `.http` file:
 
 ```http
 GET http://localhost:5154/
 ```
+
+Now, let's add a command that will run all (yes, here it means one) requests from the file:
+
+> Take a moment to appreciate how much less typing we would need afterward (just `make yac`)
 
 ```makefile
 yac:
 	httpyac send .http --all
 ```
 
+Here's how running the script might look like:
+
 ![](run-yac-demo.gif)
+
+And now let's combine the script we had before with httpyac instead of curl:
 
 ```makefile
 play:
 	bash -c -i 'make run & sleep 2 && make yac && fg'.
 ```
 
-`make play`
+Now, we will be able to get a beautifully looking result of debugging our application with a simple `make play` command:
 
 ![](play-demo.gif)
 
-## Wrapping Up!
+This command finalizes the article, let's just do a quick recap and call it a day!
+
+## Recap
+
+In this article, we've created a `Makefile` for running an ASP .NET Core application and executing a test request against it, all in one shell. Here's how the file looks assembled:
 
 ```makefile
 run:
@@ -170,4 +188,6 @@ kill:
 	kill `lsof -t -i:5154`
 ```
 
-[nice-shell repository](https://github.com/astorDev/nice-shell)
+The article and the playground are parts of the [nice-shell repository](https://github.com/astorDev/nice-shell), trying to help your shell experience be nicer. Don't hesitate to give the repository a star! ⭐
+
+Claps for this article are also appreciated! 😊
