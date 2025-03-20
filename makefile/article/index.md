@@ -8,13 +8,19 @@ The util was originally designed to help with compiling and building C projects,
 
 ## Preparing the Project and Writing Our First Command (Recipe)
 
+Let's start by creating a new minimalistic ASP .NET Core Project. Let's call it `Playground`:
+
 ```sh
 dotnet new web --name Playground
 ```
 
+We will do just two small modifications to make our experiment look a little bit nicer. First of all, let's make our logs occupy just one line per log:
+
 ```csharp
 builder.Logging.AddSimpleConsole(c => c.SingleLine = true);
 ```
+
+Secondly, let's return an object (JSON) instead of just text from the default endpoint:
 
 ```csharp
 app.MapGet("/", () => new {
@@ -22,7 +28,7 @@ app.MapGet("/", () => new {
 });
 ```
 
-`Program.cs`:
+Here's how our `Program.cs` should look after the changes:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -38,25 +44,41 @@ app.MapGet("/", () => new {
 app.Run();
 ```
 
-`Makefile`:
+Now, let's add our hero of the day - `Makefile`. For now, it will have just a single command to run our project:
 
 ```makefile
 run:
 	dotnet run
 ```
 
+And here's what `make run`:
+
+![](run-demo.gif)
+
+For now, it may not seem like much, since we could've just execute `dotnet run` in our shell directly. We will do something much more fun in the next section, but now let's take a time to reflect on why abstracting our command under `make` util may be already beneficial.
+
+It all comes down to changes. Let's say folder structure changes, a command line argument is needed or even the whole project is rewritten in another programming language. We can just update the script under the `run` command and call our familiar `make run` to make our project up and going.
+
 ## Exploring the Power of Makefile: Adding `curl` Command
 
-**centralized**
+In the first section I've provided the code for `Program.cs`, so we can be sure we have the exact same code in place. However, we will unlikely have different ports exposed, since the `dotnet new web` commands picks a random port for a newly created project. In my case it was `5154`
+
+How about we let `Makefile` get us back synced, by making the same `curl` command, using our own ports. Here's how mine looks:
 
 ```makefile
 curl:
 	curl http://localhost:5154
 ```
 
-`make run` and `make curl`
+Now, if you've used your own port we should be able to run exactly the same commands for our experiments: `make run` and `make curl`. Here's how the result might look like:
 
 ![](run-curl-demo.gif)
+
+We were able to test our application responsiveness running the commands in two shells side-by-side. But how about we start the project, wait a little bit untill it is ready, make request, and then bring it back to the foreground?
+
+This is where `make` comes in handy again. We can use a single file with multiple commands, basically calling each other like a real programming language functions.
+
+Let's draft an example recipe (as a single line inside a makefile command is called):
 
 > It's generally considered a better practice to call another make command via `$(MAKE)`. But since for our case the benefits of `$(MAKE)` are not applicable we will keep it simple
 
@@ -65,24 +87,30 @@ rurl-naive:
 	make run & sleep 4 && make curl && fg
 ```
 
-`make rurl-naive`
+Here's what we will get after running it with `make rurl-naive`:
 
 ![](rurl-naive-demo.gif)
 
-```text
-/bin/sh: line 0: fg: no job control
-```
+As you may see, we get an error: `/bin/sh: line 0: fg: no job control`. This happens due to the fact that `make` runs a non-interactive shell, for each line of the command. A non-interactive shell basically means a shell without a job control, which, in it's turn, mean that we can not bring a job to a foreground.
+
+We will fix our command, but now we have a hanging `dotnet run` process. This is especially problematic, since while the port is occupied we will not be able to start another `dotnet run` process. Gladly, we can use `Makefile` to fix that problem, too. Let's write a command killing a process by the occupied port.
+
+> Don't forget that `5154` is my generated port and you may likely have some other port
 
 ```makefile
 kill:
 	kill `lsof -t -i:5154`
 ```
 
-`make kill`:
+And here's what happens if we run `make kill`:
 
 ![](kill-demo.gif)
 
+One more `make` command in our chest. Let's fix the buggy one in the next section!
+
 ## Fixing our `rurl` Command: Making it Work with Job Control
+
+
 
 `bash -c -i`
 
@@ -120,5 +148,28 @@ play:
 ![](play-demo.gif)
 
 ## Wrapping Up!
+
+```makefile
+run:
+	dotnet run
+
+curl:
+	curl http://localhost:5154
+
+rurl-naive:
+	make run & sleep 4 && make curl && fg
+	
+rurl:
+	bash -c -i 'make run & sleep 2 && make curl && fg'
+
+yac:
+	httpyac send .http --all
+
+play:
+	bash -c -i 'make run & sleep 2 && make yac && fg'
+
+kill:
+	kill `lsof -t -i:5154`
+```
 
 [nice-shell repository](https://github.com/astorDev/nice-shell)
