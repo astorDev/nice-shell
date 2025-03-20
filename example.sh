@@ -1,6 +1,5 @@
 ## Installing the script
-
-
+# source .sh # for local testing
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 
 do_light_work() {
@@ -14,13 +13,13 @@ do_hard_work() {
     ret "much stuff"
 
     warn "Don't repeat at home! Oh, no one is listening..."
-    throw "falled dead, but no one noticed"
+    throw "fell dead, but no one noticed"
 }
 
 do_stupid_work() {
-    warn "doing stupid stuff... don't repeat at home!"
+    warn "doing stupid stuff... don't repeat it at home!"
     
-    throw "falled dead!"
+    throw "fell dead!"
 }
 
 results=$(do_light_work)
