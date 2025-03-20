@@ -20,4 +20,5 @@ warn() {
 ret() {
     printf %s "${1}"
     printf "\n" >&2
+    exit 0
 }
