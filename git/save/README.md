@@ -3,5 +3,5 @@
 To install it use:
 
 ```sh
-curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/git-save-install/git/save/install.sh | sh
+curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/main/git/save/install.sh | sh
 ```
