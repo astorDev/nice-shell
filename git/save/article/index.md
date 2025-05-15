@@ -6,7 +6,7 @@
 
 Git is awesome, but Git could be cumbersome, as well. It seems like Git developers are well aware of that problem, that's why they introduced a feature, called Git Aliases. In this article, I'm going to introduce you to Git Aliases and guide you on how to create the one I use virtually every day!
 
-> If you just want a quick script for adding the command jump straight to the [TLDR](#tldr) in the end of this article.
+> If you just want a quick script for adding the command, jump straight to the [TLDR](#tldr) at the end of this article.
 
 ## What is Git Alias?
 
