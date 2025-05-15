@@ -10,6 +10,8 @@ Git is awesome, but Git could be cumbersome, as well. It seems like Git develope
 
 ## What is Git Alias?
 
+`~/.gitconfig`
+
 ## The Problem: The Verbosity Of Fully Saving Changes 
 
 1. Add Changes to Git
