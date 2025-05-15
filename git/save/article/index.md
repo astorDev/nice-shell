@@ -51,5 +51,10 @@ In this article, we've created a git alias called `save`. It allows to add, comm
 curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/main/git/save/install.sh | sh
 ```
 
-After you see "✅ Installed `git save` alias" you should be able to do `git save "my feature branch commit"` to get something like this:
+After you see "✅ Installed `git save` alias" you will be able to use the alias like this:
 
+![](demo.png)
+
+The script, as well as this article, are parts of the [nice-shell repository](https://github.com/astorDev/nice-shell), trying to help your shell experience be nicer. Don't hesitate to give the repository a star! ⭐
+
+Claps for this article are also appreciated! 😊
