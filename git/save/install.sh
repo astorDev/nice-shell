@@ -12,3 +12,5 @@ git config --global alias.save '!f() { \
     log "Pushing changes to remote repository (git push --set-upstream origin $CURRENT_BRANCH)" && \
     git push --set-upstream origin $CURRENT_BRANCH; \
 }; f'
+
+echo "✅ Installed \`git save\` alias"
