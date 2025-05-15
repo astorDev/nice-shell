@@ -23,6 +23,10 @@ git config --global alias.last 'log -1 HEAD'
 	last = log -1 HEAD
 ```
 
+Looking like this:
+
+![]()
+
 ```sh
 git config --global alias.hello '!echo Hello'
 ```
