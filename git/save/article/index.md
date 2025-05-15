@@ -108,6 +108,21 @@ git config --global alias.save '!f() {
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
+```
+
+```sh
+if [ -z "$1" ]; then
+    throw "Commit message was not provided"
+fi
+```
+
+```sh
+log "Adding all files to git (git add --all)"
+```
+
+
+```sh
+source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 
 if [ -z "$1" ]; then
     throw "Commit message was not provided"
@@ -139,6 +154,8 @@ git config --global alias.save '!f() {
 
     log "Pushing changes to remote repository (git push --set-upstream origin $(git current))"
     git push  --set-upstream origin $(git current)
+    
+    log "Changes were saved successfully ✅" 
 }; f'
 ```
 
