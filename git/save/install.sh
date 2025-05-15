@@ -7,10 +7,8 @@ git config --global alias.save '!f() { \
     git add -A && \
     log "Commiting changes (git commit -m \"${1}\")" && \
     git commit -m "$1" && \
-    CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD) && \
-    log "Current branch: $CURRENT_BRANCH" && \
-    log "Pushing changes to remote repository (git push --set-upstream origin $CURRENT_BRANCH)" && \
-    git push --set-upstream origin $CURRENT_BRANCH; \
+    log "Pushing changes to remote repository (git push --set-upstream origin $(git current))" && \
+    git push --set-upstream origin $(git current); \
 }; f'
 
 echo "✅ Installed \`git save\` alias"
