@@ -160,6 +160,12 @@ git config --global alias.save '!f() {
 }; f'
 ```
 
+```sh
+git save "My Changes"
+```
+
+`Changes have been saved successfully ✅` printed! This wraps up this article, let's do a quick recap and see a picture of how the result of our command might look like!
+
 ## TLDR;
 
 In this article, we've created a git alias called `save`. It allows us to add, commit, and push changes using just one command. Instead of recreating it, you can install it straight from GitHub, with this one-liner:
