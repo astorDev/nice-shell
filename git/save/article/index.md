@@ -10,17 +10,115 @@ Git is awesome, but Git could be cumbersome, as well. It seems like Git develope
 
 ## What is Git Alias?
 
+Git Aliases are a way to extend `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. 
+
+```sh
+git config --global alias.last 'log -1 HEAD'
+```
+
 `~/.gitconfig`
 
-## The Problem: The Verbosity Of Fully Saving Changes 
+```toml
+[alias]
+	last = log -1 HEAD
+```
+
+Looking like this:
+
+```text
+commit 297625e0522f5488f7f923d6a1ece4c4f8ebdab8 (HEAD -> git-save-assets, origin/git-save-assets)
+Author: Egor Tarasov <vosarat1995@google.com>
+Date:   Thu May 15 22:05:48 2025 +0300
+
+    git save article
+```
+
+## Making a More Complex Alias
+
+`!` symbol
+
+```sh
+git config --global alias.hello '!echo "Hello From Git Alias"'
+```
+
+```sh
+git config --global alias.echo '!echo "from git: $1"'
+```
+
+```text
+echoed by git: one one
+```
+
+```sh
+!f() {
+
+}; f
+```
+
+```sh
+git config --global alias.echo '!f() {
+    echo "Your call has been heard"
+    echo "you hear back: $1"
+}; f'
+```
+
+```text
+from git: one
+```
+
+> Wrapping in functions also helps with complex script constructs like the `if`.
+
+## Getting Current Branch Name with `current` Alias
+
+```sh
+git config --global alias.current 'rev-parse --abbrev-ref HEAD'
+```
+
+```sh
+git config --global alias.echo-current '!echo "📌 Current Git Branch: $(git current)"'
+```
+
+## Making The Alias. Solving The Verbosity Of Fully Saving Changes 
 
 1. Add Changes to Git
 2. Commit The Changes
 3. Push the Changes, Creating a Remote Branch
 
-## Making The Alias
+```sh
+git add --all
+```
+
+```sh
+git commit --message "$1"
+```
+
+```sh
+git push --set-upstream origin $(git current)
+```
+
+```sh
+git config --global alias.save '!f() {
+    git add --all
+    git commit --message "$1"
+    git push --set-upstream origin $(git current)
+}; f'
+```
 
 ## Improving Transparency with Nice-Shell
+
+```sh
+source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
+```
+
+```sh
+if [ -z "$1" ]; then
+    throw "Commit message was not provided"
+fi
+```
+
+```sh
+log "Adding all files to git (git add --all)"
+```
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
@@ -29,19 +127,44 @@ if [ -z "$1" ]; then
     throw "Commit message was not provided"
 fi
 
-log "Adding all files to git (git add -A)"
-git add -A
+log "Adding all files to git (git add --all)"
+git add --all
 
-log "Commiting changes (git commit -m \"${1}\")"
-git commit -m "$1"
+log "Committing changes (git commit --message \"${1}\")"
+git commit --message "$1"
 
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-log "Current branch: $CURRENT_BRANCH"
+log "Pushing changes to the remote repository (git push --set-upstream origin $(git current))"
+git push  --set-upstream origin $(git current)
 
-log "Pushing changes to remote repository (git push --set-upstream origin $CURRENT_BRANCH)"
-
-git push  --set-upstream origin $CURRENT_BRANCH"
+log "Changes have been saved successfully ✅" 
 ```
+
+```sh
+git config --global alias.save '!f() { 
+    source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
+
+    if [ -z "$1" ]; then
+        throw "Commit message was not provided"
+    fi
+
+    log "Adding all files to git (git add --all)"
+    git add --all
+
+    log "Committing changes (git commit --message \"${1}\")"
+    git commit --message "$1"
+
+    log "Pushing changes to the remote repository (git push --set-upstream origin $(git current))"
+    git push  --set-upstream origin $(git current)
+
+    log "Changes have been saved successfully ✅" 
+}; f'
+```
+
+```sh
+git save "My Changes"
+```
+
+`Changes have been saved successfully ✅` printed! This wraps up this article, let's do a quick recap and see a picture of how the result of our command might look like!
 
 ## TLDR;
 
