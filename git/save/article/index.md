@@ -25,47 +25,67 @@ git config --global alias.last 'log -1 HEAD'
 
 Looking like this:
 
-![]()
+```text
+commit 297625e0522f5488f7f923d6a1ece4c4f8ebdab8 (HEAD -> git-save-assets, origin/git-save-assets)
+Author: Egor Tarasov <vosarat1995@google.com>
+Date:   Thu May 15 22:05:48 2025 +0300
+
+    git save article
+```
+
+## Making a More Complex Alias
+
+`!` symbol
 
 ```sh
-git config --global alias.hello '!echo Hello'
+git config --global alias.hello '!echo "Hello From Git Alias"'
 ```
 
 ```sh
-git config --global alias.talk '!echo "Hello" && echo "What a nice day"'
+git config --global alias.check '!if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi'
+```
+
+`git check one` 
+
+```text
+if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi: -c: line 0: syntax error near unexpected token `"$@"'
+if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi: -c: line 0: `if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi "$@"'
+```
+
+`syntax error near unexpected token "$@`
+
+`f() { ... }; f`:
+
+```sh
+git config --global alias.check '!f() { if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi; }; f'
+```
+
+```text
+Arg: one
+```
+
+## Getting Current Branch Name with `current` Alias
+
+```sh
+git config --global alias.current 'rev-parse --abbrev-ref HEAD'
 ```
 
 ```sh
-git config --global alias.echo '!echo $1'
+git config --global alias.echo-current '!echo "📌 Current Git Branch: $(git current)"'
 ```
 
-```sh
-git config --global alias.greet '!echo "Hello, $1! Today is $2."'
-```
-
-## What if 
-
-
-## Complex Scripts and the f() Wrapper
-
-```sh
-git config --global alias.check '!if [ -z "$1" ]; then echo "No arg"; fi'
-```
-
-```sh
-git config --global alias.check '!f() { if [ -z "$1" ]; then echo "No arg"; fi }; f'
-```
-
-
-
-
-## The Problem: The Verbosity Of Fully Saving Changes 
+## Making The Alias. Solving The Verbosity Of Fully Saving Changes 
 
 1. Add Changes to Git
 2. Commit The Changes
 3. Push the Changes, Creating a Remote Branch
 
-## Making The Alias
+```sh
+git add -A
+git commit -m "$1"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+git push  --set-upstream origin $CURRENT_BRANCH"
+```
 
 ## Improving Transparency with Nice-Shell
 
@@ -88,6 +108,21 @@ log "Current branch: $CURRENT_BRANCH"
 log "Pushing changes to remote repository (git push --set-upstream origin $CURRENT_BRANCH)"
 
 git push  --set-upstream origin $CURRENT_BRANCH"
+```
+
+```sh
+git config --global alias.save '!f() { \
+    source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)" && \
+    if [ -z "$1" ]; then \
+        throw "Commit message was not provided"; \
+    fi && \
+    log "Adding all files to git (git add -A)" && \
+    git add -A && \
+    log "Commiting changes (git commit -m \"${1}\")" && \
+    git commit -m "$1" && \
+    log "Pushing changes to remote repository (git push --set-upstream origin $(git current))" && \
+    git push --set-upstream origin $(git current); \
+}; f'
 ```
 
 ## TLDR;
