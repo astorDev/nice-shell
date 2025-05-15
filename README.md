@@ -19,7 +19,6 @@ And here's what the result of using those functions might look like:
 
 ![](example-demo.png)
 
-
 Below you can check the script producing the result:
 
 ```sh
