@@ -1,4 +1,4 @@
-git config --global alias.saver '!f() { \
+git config --global alias.save '!f() { \
     source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)" && \
     if [ -z "$1" ]; then \
         throw "Commit message was not provided"; \
