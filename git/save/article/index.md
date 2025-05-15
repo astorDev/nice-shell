@@ -42,27 +42,31 @@ git config --global alias.hello '!echo "Hello From Git Alias"'
 ```
 
 ```sh
-git config --global alias.check '!if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi'
+git config --global alias.echo '!echo "from git: $1"'
 ```
-
-`git check one` 
 
 ```text
-if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi: -c: line 0: syntax error near unexpected token `"$@"'
-if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi: -c: line 0: `if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi "$@"'
+echoed by git: one one
 ```
-
-`syntax error near unexpected token "$@`
-
-`f() { ... }; f`:
 
 ```sh
-git config --global alias.check '!f() { if [ -z "$1" ]; then echo "No arg"; else echo "Arg: $1"; fi; }; f'
+!f() {
+
+}; f
+```
+
+```sh
+git config --global alias.echo '!f() {
+    echo "Your call has been heard"
+    echo "you hear back: $1"
+}; f'
 ```
 
 ```text
-Arg: one
+from git: one
 ```
+
+> Wrapping in functions also helps with complex script constructs like the `if`.
 
 ## Getting Current Branch Name with `current` Alias
 
@@ -81,17 +85,22 @@ git config --global alias.echo-current '!echo "📌 Current Git Branch: $(git cu
 3. Push the Changes, Creating a Remote Branch
 
 ```sh
-git add -A
-git commit -m "$1"
-git push  --set-upstream origin $(git current)"
+git add --all
 ```
 
 ```sh
-git config --global alias.save '!
-    git add -A
-    git commit -m "$1"
-    git push --set-upstream origin $(git current)
-'
+git commit --message "$1"
+```
+
+```sh
+git push --set-upstream origin $(git current)"
+```
+
+```sh
+git config --global alias.save '!f() {
+    git add --all
+    git commit --message "$1"
+}; f'
 ```
 
 ## Improving Transparency with Nice-Shell
