@@ -10,7 +10,50 @@ Git is awesome, but Git could be cumbersome, as well. It seems like Git develope
 
 ## What is Git Alias?
 
+Git Aliases are a way to extend `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. 
+
+```sh
+git config --global alias.last 'log -1 HEAD'
+```
+
 `~/.gitconfig`
+
+```toml
+[alias]
+	last = log -1 HEAD
+```
+
+```sh
+git config --global alias.hello '!echo Hello'
+```
+
+```sh
+git config --global alias.talk '!echo "Hello" && echo "What a nice day"'
+```
+
+```sh
+git config --global alias.echo '!echo $1'
+```
+
+```sh
+git config --global alias.greet '!echo "Hello, $1! Today is $2."'
+```
+
+## What if 
+
+
+## Complex Scripts and the f() Wrapper
+
+```sh
+git config --global alias.check '!if [ -z "$1" ]; then echo "No arg"; fi'
+```
+
+```sh
+git config --global alias.check '!f() { if [ -z "$1" ]; then echo "No arg"; fi }; f'
+```
+
+
+
 
 ## The Problem: The Verbosity Of Fully Saving Changes 
 
