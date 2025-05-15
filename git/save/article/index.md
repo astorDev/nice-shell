@@ -93,13 +93,14 @@ git commit --message "$1"
 ```
 
 ```sh
-git push --set-upstream origin $(git current)"
+git push --set-upstream origin $(git current)
 ```
 
 ```sh
 git config --global alias.save '!f() {
     git add --all
     git commit --message "$1"
+    git push --set-upstream origin $(git current)
 }; f'
 ```
 
