@@ -45,3 +45,11 @@ git push  --set-upstream origin $CURRENT_BRANCH"
 
 ## TLDR;
 
+In this article, we've created a git alias called `save`. It allows to add, commit and push changes using just one command. Instead of recreating it you can install it straight from the github, with this one-liner
+
+```sh
+curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/main/git/save/install.sh | sh
+```
+
+After you see "✅ Installed `git save` alias" you should be able to do `git save "my feature branch commit"` to get something like this:
+
