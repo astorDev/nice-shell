@@ -10,20 +10,19 @@ Git is awesome, but Git could be cumbersome, as well. It seems like Git develope
 
 ## What is Git Alias?
 
-Git Aliases are a way to extend `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. 
+Git Aliases are a way to extend `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. For example, we can create a one-word alias for the command showing us the information about the last commit
 
 ```sh
 git config --global alias.last 'log -1 HEAD'
 ```
 
-`~/.gitconfig`
+Immediately after setting the alias, you will be able to use it as a git command:
 
-```toml
-[alias]
-	last = log -1 HEAD
+```sh
+git last
 ```
 
-Looking like this:
+Getting in response something like this:
 
 ```text
 commit 297625e0522f5488f7f923d6a1ece4c4f8ebdab8 (HEAD -> git-save-assets, origin/git-save-assets)
@@ -33,21 +32,38 @@ Date:   Thu May 15 22:05:48 2025 +0300
     git save article
 ```
 
-## Making a More Complex Alias
+From a technical perspective, the alias setup updated the `~/.gitconfig` file, adding a row to the `alias` section, like this:
 
-`!` symbol
+```toml
+[alias]
+	last = log -1 HEAD
+```
+
+As you see, using git aliases you can do what the name suggests: create a shorthand for a certain Git command you use frequently. However, to get the most out of them we'll need to go slightly beyond that.
+
+## Unlocking Full Git Aliases Potential with ! operator
+
+Let's imagine a situation where you need to perform a git operation, but also need to use a non-git command in a process. This is where the true power of git aliases comes into play. Starting your alias with the `!` operator you can call commands, that does not belong to Git. Let's see this in action:
 
 ```sh
 git config --global alias.hello '!echo "Hello From Git Alias"'
 ```
 
+With that in place, you will be able to call `git hello` and get the expected `Hello From Git Alias`.
+
+You can even use a shell arguments like this:
+
 ```sh
 git config --global alias.echo '!echo "from git: $1"'
 ```
 
+Here's what you will get from calling `git echo one`:
+
 ```text
-echoed by git: one one
+from git: one one
 ```
+
+Well, it printed what we expected, but for some reason it also have duplicated the `one`. This is a peculiar behaviour of git aliases - for some reason they print arguments passed after the command output. Gladly, we can work around it by wrapping our script in a function and calling it:
 
 ```sh
 !f() {
@@ -55,18 +71,17 @@ echoed by git: one one
 }; f
 ```
 
+Here's how it will look in our case
+
 ```sh
 git config --global alias.echo '!f() {
-    echo "Your call has been heard"
-    echo "you hear back: $1"
+    echo "from git: $1"
 }; f'
 ```
 
-```text
-from git: one
-```
+With the updated setup, running `git echo one` will give us the compact `from git: one`. By the way, wrapping our scripts in functions also helps with complex script constructs like the `if`.
 
-> Wrapping in functions also helps with complex script constructs like the `if`.
+This is enough of the fundamentals, now let's jump to building something real!
 
 ## Getting Current Branch Name with `current` Alias
 

@@ -1,3 +1,7 @@
+git config --global alias.current 'rev-parse --abbrev-ref HEAD'
+
+echo "✅ Installed \`git current\` alias"
+
 git config --global alias.save '!f() { 
     source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 
