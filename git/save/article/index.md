@@ -10,7 +10,7 @@ Git is awesome, but Git can be cumbersome as well. It seems like Git developers 
 
 ## What is Git Alias?
 
-Git Aliases are a way to extend `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. For example, we can create a one-word alias for the command showing us the information about the last commit:
+Git Aliases are a way to extend the `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. For example, we can create a one-word alias for the command showing us the information about the last commit:
 
 ```sh
 git config --global alias.last 'log -1 HEAD'
@@ -39,7 +39,7 @@ From a technical perspective, the alias setup updated the `~/.gitconfig` file, a
 	last = log -1 HEAD
 ```
 
-As you see, using git aliases you can do what the name suggests: create a shorthand for a certain Git command you use frequently. However, to get the most out of them we'll need to go slightly beyond that.
+As you see, using git aliases, you can do what the name suggests: create a shorthand for a certain Git command you use frequently. However, to get the most out of them we'll need to go slightly beyond that.
 
 ## Unlocking Full Git Aliases Potential with ! operator
 
@@ -63,7 +63,7 @@ Here's what you will get from calling `git echo one`:
 from git: one one
 ```
 
-Well, it printed what we expected, but for some reason it also has duplicated the `one`. This is a peculiar behaviour of git aliases - for some reason they print the arguments passed after the command output. Gladly, we can work around it by wrapping our script in a function and calling it:
+Well, it printed what we expected, but for some reason it also duplicated the `one`. This is a peculiar behaviour of git aliases - for some reason, they print the arguments passed after the command output. Gladly, we can work around it by wrapping our script in a function and calling it:
 
 ```sh
 !f() {
@@ -179,7 +179,7 @@ git config --global alias.save '!f() {
 git save "My Changes"
 ```
 
-`Changes have been saved successfully ✅` printed! This wraps up this article, let's do a quick recap and see a picture of what the result of our command might look like!
+`Changes have been saved successfully ✅` printed! This wraps up this article. Let's do a quick recap and see a picture of what the result of our command might look like!
 
 ## TLDR;
 
