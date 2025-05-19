@@ -183,9 +183,13 @@ Although we can sort of figure out what has happened by the output it is quite a
 
 ## Improving Transparency with Nice-Shell
 
+To make our alias nicer let's add some log messages with the commands we are executing and add validation. We'll utilize a [nice-shell](https://github.com/astorDev/nice-shell?tab=readme-ov-file#nice-shell) script for that. First, let's `source` it:
+
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 ```
+
+The only thing we'll need to validate is that there was a commit message supplied:
 
 ```sh
 if [ -z "$1" ]; then
@@ -193,9 +197,13 @@ if [ -z "$1" ]; then
 fi
 ```
 
+Beyond that, let's log the command we are executing, along with some comments, like this:
+
 ```sh
 log "Adding all files to git (git add --all)"
 ```
+
+Here's the complete script:
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
@@ -215,6 +223,8 @@ git push  --set-upstream origin $(git current)
 
 log "Changes have been saved successfully ✅" 
 ```
+
+Let's now wrap it in a function and pass to the alias setup.
 
 ```sh
 git config --global alias.save '!f() { 
@@ -241,7 +251,7 @@ git config --global alias.save '!f() {
 git save "My Changes"
 ```
 
-`Changes have been saved successfully ✅` printed! This wraps up this article. Let's do a quick recap and see a picture of what the result of our command might look like!
+You should see `Changes have been saved successfully ✅` printed! This wraps up this article. Let's do a quick recap and see a picture of what the result of our command might look like!
 
 ## TLDR;
 
