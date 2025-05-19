@@ -39,11 +39,11 @@ From a technical perspective, the alias setup updated the `~/.gitconfig` file, a
 	last = log -1 HEAD
 ```
 
-As you see, using git aliases, you can do what the name suggests: create a shorthand for a certain Git command you use frequently. However, to get the most out of them we'll need to go slightly beyond that.
+As you see, using git aliases, you can do what the name suggests: create a shorthand for a certain Git command you use frequently. However, to get the most out of them, we'll need to go slightly beyond that.
 
 ## Unlocking Full Git Aliases Potential with ! operator
 
-Let's imagine a situation where you need to perform a git operation, but also need to use a non-git command in a process. This is where the true power of git aliases comes into play. Starting your alias with the `!` operator you can call commands, that do not belong to Git. Let's see this in action:
+Let's imagine a situation where you need to perform a git operation, but also need to use a non-git command in a process. This is where the true power of git aliases comes into play. Starting your alias with the `!` operator, you can call commands that do not belong to Git. Let's see this in action:
 
 ```sh
 git config --global alias.hello '!echo "Hello From Git Alias"'
@@ -85,7 +85,7 @@ This is enough of the fundamentals. Now, let's jump to building something real!
 
 ## Getting Current Branch Name with `current` Alias
 
-Getting current branch name is a very common task, when you are working with git. Of course, you can see it using a `git status` command. Here's an example of what you might see:
+Getting the current branch name is a very common task when you are working with git. Of course, you can see it using the `git status` command. Here's an example of what you might see:
 
 ```text
 On branch main
@@ -94,7 +94,7 @@ Your branch is up to date with 'origin/main'.
 nothing to commit, working tree clean
 ```
 
-However, this will print a lot of additional information, which is not suitable, if you want to use it in another script. In this scenario you should use `git rev-parse --abbrev-ref HEAD`. 
+However, this will print a lot of additional information, which is not suitable, if you want to use it in another script. In this scenario, you should use `git rev-parse --abbrev-ref HEAD`. 
 
 This command seems to be a canonical candidate for a Git alias - it is cumbersome, hard to remember, but does a very common job. Let's call our alias `current`:
 
@@ -126,21 +126,21 @@ The next task we are going to simplify with an alias is perhaps the most common 
 2. Committing The Changes
 3. Pushing the Changes to a remote branch
 
-Let's disect those steps and see which commands we have for performing all of the steps.
+Let's dissect those steps and see which commands we have for performing all of the steps.
 
-1. Add Changes to Git. By default `git add` expects a name of the file to be added. However, most of the time, you just want to add everything you have, so we'll use the `--all` flag:
+1. Add Changes to Git. By default, `git add` expects the name of the file to be added. However, most of the time, you just want to add everything you have, so we'll use the `--all` flag:
 
 ```sh
 git add --all
 ```
 
-2. Commit The Changes. Here we'll just use a verbose of the command, passing a message passed to the `save` command as a commit message:
+2. Commit The Changes. Here we'll just use a verbose version of the command, passing a message passed to the `save` command as a commit message:
 
 ```sh
 git commit --message "$1"
 ```
 
-3. Push the Changes. Beyond performing the push, we should also ensure a remote branch exists. Here where our previously created `current` alias comes into play. Combined, with the `--set-upstream` argument it makes sure local branch is connected to the remote branch with the same name:
+3. Push the Changes. Beyond performing the push, we should also ensure a remote branch exists. Here, our previously created `current` alias comes into play. Combined with the `--set-upstream` argument, it makes sure the local branch is connected to the remote branch with the same name:
 
 ```sh
 git push --set-upstream origin $(git current)
@@ -179,11 +179,11 @@ To https://github.com/astorDev/nice-shell.git
 branch 'git-save-basic-texts' set up to track 'origin/git-save-basic-texts'.
 ```
 
-Although we can sort of figure out what has happened by the output it is quite a challenge. Let's improve the output readability in the next section.
+Although we can sort of figure out what has happened by the output, it is quite a challenge. Let's improve the output readability in the next section.
 
 ## Improving Transparency with Nice-Shell
 
-To make our alias nicer let's add some log messages with the commands we are executing and add validation. We'll utilize a [nice-shell](https://github.com/astorDev/nice-shell?tab=readme-ov-file#nice-shell) script for that. First, let's `source` it:
+To make our alias nicer, let's add some log messages with the commands we are executing and add validation. We'll utilize a [nice-shell](https://github.com/astorDev/nice-shell?tab=readme-ov-file#nice-shell) script for that. First, let's `source` it:
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
@@ -224,7 +224,7 @@ git push  --set-upstream origin $(git current)
 log "Changes have been saved successfully ✅" 
 ```
 
-Let's now wrap it in a function and pass to the alias setup.
+Let's now wrap it in a function and pass it to the alias setup.
 
 ```sh
 git config --global alias.save '!f() { 
