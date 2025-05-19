@@ -85,31 +85,60 @@ This is enough of the fundamentals. Now, let's jump to building something real!
 
 ## Getting Current Branch Name with `current` Alias
 
+Getting current branch name is a very common task, when you are working with git. Of course, you can see it using a `git status` command. Here's an example of what you might see:
+
+```text
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+```
+
+However, this will print a lot of additional information, which is not suitable, if you want to use it in another script. In this scenario you should use `git rev-parse --abbrev-ref HEAD`. 
+
+This command seems to be a canonical candidate for a Git alias - it is cumbersome, hard to remember, but does a very common job. Let's call our alias `current`:
+
 ```sh
 git config --global alias.current 'rev-parse --abbrev-ref HEAD'
 ```
+
+Now, running `git current` we should be able to see **just** the current branch name.
+
+We can also now use this alias in another alias. Let's see it in action by printing a nice message utilizing the `git current` and the `!` operator:
 
 ```sh
 git config --global alias.echo-current '!echo "📌 Current Git Branch: $(git current)"'
 ```
 
+Here's what we should see from `git echo-current`:
+
+```text
+📌 Current Git Branch: main
+```
+
+Hurray, we've made a useful Git alias. We'll use it in the next section to build something even cooler.
+
 ## Making The Alias. Solving The Verbosity Of Fully Saving Changes 
 
 1. Add Changes to Git
-2. Commit The Changes
-3. Push the Changes, Creating a Remote Branch
 
 ```sh
 git add --all
 ```
 
+2. Commit The Changes
+
 ```sh
 git commit --message "$1"
 ```
 
+3. Push the Changes, Creating a Remote Branch
+
 ```sh
 git push --set-upstream origin $(git current)
 ```
+
+Let's also wrap it in a function to see a proper output. Here's a configuration setup script:
 
 ```sh
 git config --global alias.save '!f() {
