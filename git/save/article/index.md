@@ -247,11 +247,15 @@ git config --global alias.save '!f() {
 }; f'
 ```
 
+Now, after executing the command below:
+
 ```sh
 git save "My Changes"
 ```
 
-You should see `Changes have been saved successfully ✅` printed! This wraps up this article. Let's do a quick recap and see a picture of what the result of our command might look like!
+You should see `Changes have been saved successfully ✅` printed! 
+
+This wraps up this article. Let's do a quick recap and see a picture of what the result of our command might look like!
 
 ## TLDR;
 
