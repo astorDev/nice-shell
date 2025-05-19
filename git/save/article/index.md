@@ -2,13 +2,13 @@
 
 > Using Git Aliases To Simplify Saving Your Changes
 
-[Makes Git 1.47x Times Nicer!](thumb.png)
+![Makes Git 1.47x Times Nicer!](thumb.png)
 
 Git is awesome, but Git can be cumbersome as well. It seems like Git developers are well aware of that problem; that's why they introduced a feature called Git Aliases. In this article, I'm going to introduce you to Git Aliases and guide you on how to create the one I use virtually every day!
 
 > If you just want a quick script for adding the command, jump straight to the [TLDR](#tldr) at the end of this article.
 
-## What is Git Alias?
+## What is a Git Alias?
 
 Git Aliases are a way to extend the `git` command line utils with new commands, perhaps giving an old command a shorter or clearer name. For example, we can create a one-word alias for the command showing us the information about the last commit:
 
@@ -63,7 +63,7 @@ Here's what you will get from calling `git echo one`:
 from git: one one
 ```
 
-Well, it printed what we expected, but for some reason it also duplicated the `one`. This is a peculiar behaviour of git aliases - for some reason, they print the arguments passed after the command output. Gladly, we can work around it by wrapping our script in a function and calling it:
+Well, it printed what we expected, but for some reason, it also duplicated the `one`. This is a peculiar behaviour of git aliases - for some reason, they print the arguments passed after the command output. Gladly, we can work around it by wrapping our script in a function and calling it:
 
 ```sh
 !f() {
@@ -83,7 +83,7 @@ With the updated setup, running `git echo one` will give us the compact `from gi
 
 This is enough of the fundamentals. Now, let's jump to building something real!
 
-## Getting Current Branch Name with `current` Alias
+## Getting the Current Branch Name with `current` Alias
 
 Getting the current branch name is a very common task when you are working with git. Of course, you can see it using the `git status` command. Here's an example of what you might see:
 
@@ -94,7 +94,7 @@ Your branch is up to date with 'origin/main'.
 nothing to commit, working tree clean
 ```
 
-However, this will print a lot of additional information, which is not suitable, if you want to use it in another script. In this scenario, you should use `git rev-parse --abbrev-ref HEAD`. 
+However, this will print a lot of additional information, which is not suitable if you want to use it in another script. In this scenario, you should use `git rev-parse --abbrev-ref HEAD`. 
 
 This command seems to be a canonical candidate for a Git alias - it is cumbersome, hard to remember, but does a very common job. Let's call our alias `current`:
 
@@ -102,7 +102,7 @@ This command seems to be a canonical candidate for a Git alias - it is cumbersom
 git config --global alias.current 'rev-parse --abbrev-ref HEAD'
 ```
 
-Now, running `git current` we should be able to see **just** the current branch name.
+Now, running `git current`, we should be able to see **just** the current branch name.
 
 We can also now use this alias in another alias. Let's see it in action by printing a nice message utilizing the `git current` and the `!` operator:
 
@@ -146,7 +146,7 @@ git commit --message "$1"
 git push --set-upstream origin $(git current)
 ```
 
-All we have to do is call of the commands above in a single alias. Let's also wrap it in a function to see a proper output. Here's what we might get:
+All we have to do is call the commands above in a single alias. Let's also wrap it in a function to see a proper output. Here's what we might get:
 
 ```sh
 git config --global alias.save '!f() {
