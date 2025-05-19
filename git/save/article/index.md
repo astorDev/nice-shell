@@ -120,25 +120,33 @@ Hurray, we've made a useful Git alias. We'll use it in the next section to build
 
 ## Making The Alias. Solving The Verbosity Of Fully Saving Changes 
 
-1. Add Changes to Git
+The next task we are going to simplify with an alias is perhaps the most common git task of all: saving changes. Saving changes normally implies 3 steps:
+
+1. Adding Changes to Git
+2. Committing The Changes
+3. Pushing the Changes to a remote branch
+
+Let's disect those steps and see which commands we have for performing all of the steps.
+
+1. Add Changes to Git. By default `git add` expects a name of the file to be added. However, most of the time, you just want to add everything you have, so we'll use the `--all` flag:
 
 ```sh
 git add --all
 ```
 
-2. Commit The Changes
+2. Commit The Changes. Here we'll just use a verbose of the command, passing a message passed to the `save` command as a commit message:
 
 ```sh
 git commit --message "$1"
 ```
 
-3. Push the Changes, Creating a Remote Branch
+3. Push the Changes. Beyond performing the push, we should also ensure a remote branch exists. Here where our previously created `current` alias comes into play. Combined, with the `--set-upstream` argument it makes sure local branch is connected to the remote branch with the same name:
 
 ```sh
 git push --set-upstream origin $(git current)
 ```
 
-Let's also wrap it in a function to see a proper output. Here's a configuration setup script:
+All we have to do is call of the commands above in a single alias. Let's also wrap it in a function to see a proper output. Here's what we might get:
 
 ```sh
 git config --global alias.save '!f() {
@@ -148,7 +156,13 @@ git config --global alias.save '!f() {
 }; f'
 ```
 
+
+
 ## Improving Transparency with Nice-Shell
+
+```text
+
+```
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
