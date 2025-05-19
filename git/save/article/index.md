@@ -2,7 +2,7 @@
 
 > Using Git Aliases To Simplify Saving Your Changes
 
-[Makes Git 1.47x Times Nicer!](thumb.png)
+![Makes Git 1.47x Times Nicer!](thumb.png)
 
 Git is awesome, but Git can be cumbersome as well. It seems like Git developers are well aware of that problem; that's why they introduced a feature called Git Aliases. In this article, I'm going to introduce you to Git Aliases and guide you on how to create the one I use virtually every day!
 
