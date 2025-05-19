@@ -156,13 +156,32 @@ git config --global alias.save '!f() {
 }; f'
 ```
 
+After performing the setup, we should be able to save our changes using just `git save "My Changes"`. 
 
-
-## Improving Transparency with Nice-Shell
+Here's an example output of the command.
 
 ```text
-
+[git-save-basic-texts d414d3b] git save basics text
+ 1 file changed, 18 insertions(+), 4 deletions(-)
+Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (6/6), 1.64 KiB | 1.64 MiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
+remote: 
+remote: Create a pull request for 'git-save-basic-texts' on GitHub by visiting:
+remote:      https://github.com/astorDev/nice-shell/pull/new/git-save-basic-texts
+remote: 
+To https://github.com/astorDev/nice-shell.git
+ * [new branch]      git-save-basic-texts -> git-save-basic-texts
+branch 'git-save-basic-texts' set up to track 'origin/git-save-basic-texts'.
 ```
+
+Although we can sort of figure out what has happened by the output it is quite a challenge. Let's improve the output readability in the next section.
+
+## Improving Transparency with Nice-Shell
 
 ```sh
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
