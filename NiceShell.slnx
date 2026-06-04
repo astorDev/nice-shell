@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="clis/lib/NiceShell.Cli.csproj" />
+  <Project Path="clis/template/Template.Cli.csproj" />
+</Solution>
