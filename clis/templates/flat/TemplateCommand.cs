@@ -1,16 +1,6 @@
-﻿using System.CommandLine;
-
-var rootCommand = new RootCommand("A simple greeting application.")
+public class TemplateCommand : Command
 {
-    new GreetCommand()
-};
-
-ParseResult parseResult = rootCommand.Parse(args);
-return parseResult.Invoke();
-
-public class GreetCommand : Command
-{
-    private readonly Option<string> _nameOption = new("--name")
+    private readonly Option<string> nameOption = new("--name")
     {
         Description = "The name of the person to greet.",
         Required = true
@@ -22,16 +12,16 @@ public class GreetCommand : Command
         Arity = ArgumentArity.ExactlyOne
     };
 
-    public GreetCommand() : base("greet", "Greet a person by name.")
+    public TemplateCommand() : base("greet", "Greet a person by name.")
     {
         Add(pathArgument);
-        Add(_nameOption);
+        Add(nameOption);
         SetAction(Execute);
     }
 
     private void Execute(ParseResult parseResult)
     {
-        var name = parseResult.GetRequiredValue(_nameOption);
+        var name = parseResult.GetRequiredValue(nameOption);
         var path = parseResult.GetRequiredValue(pathArgument);
 
         Console.WriteLine($"Hello, {name}!");

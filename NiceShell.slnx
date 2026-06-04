@@ -1,3 +1,7 @@
 <Solution>
-  <Project Path="templates/flat/NiceShell.FlatTemplate.csproj" />
+  <Folder Name="/clis/" />
+  <Folder Name="/clis/lib/">
+    <Project Path="clis/lib/NiceShell.Cli.csproj" />
+  </Folder>
+  <Project Path="clis/templates/flat/Template.Cli.csproj" />
 </Solution>

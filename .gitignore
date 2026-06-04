@@ -3,3 +3,4 @@ playground.*
 bin/
 obj/
 .DS_Store
+*buffer.*
