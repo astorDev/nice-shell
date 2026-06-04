@@ -10,8 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
-    <PackageReference Include="System.CommandLine" Version="2.0.8" />
+    <PackageReference Include="NiceShell.Cli" Version="2026.106.104.1-template-101" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System.CommandLine" />
+    <Using Include="NiceShell"/>
   </ItemGroup>
 
 </Project>

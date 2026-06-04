@@ -1,5 +1,5 @@
 run:
-	dotnet run -- greet . --name John
+	dotnet run -- template . --name John
 
 install:
 	dotnet pack -c Release

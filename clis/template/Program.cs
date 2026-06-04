@@ -1,6 +1,4 @@
-﻿global using System.CommandLine;
-
-var builder = new CliApplicationBuilder();
+﻿var builder = new CliBuilder();
 
 builder.AddCommand<TemplateCommand>();
 

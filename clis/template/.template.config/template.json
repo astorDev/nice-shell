@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Astor",
+    "classifications": [ "CLI" ], 
+    "name": "CLI",
+    "identity": "cli",         
+    "shortName": "cli",
+    "tags": {
+      "language": "C#",
+      "type":"project"
+    },
+    "sourceName": "Template",
+    "preferNameDirectory": true
+}

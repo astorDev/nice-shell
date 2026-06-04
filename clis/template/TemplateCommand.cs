@@ -12,7 +12,7 @@ public class TemplateCommand : Command
         Arity = ArgumentArity.ExactlyOne
     };
 
-    public TemplateCommand() : base("greet", "Greet a person by name.")
+    public TemplateCommand() : base("template", "Greet a person by name.")
     {
         Add(pathArgument);
         Add(nameOption);
