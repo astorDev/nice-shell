@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: astorDev/versy/calver/nuget@main
         with:
-          project: core/lib/NiceShell
+          project: core/lib/NiceShell.Core
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
