@@ -1,0 +1,17 @@
+name: Core Nuget
+on:
+  push:
+    paths:
+      - 'core/lib/**'
+      - '.github/workflows/core-nuget.yaml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Pack & Publish nuget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: astorDev/versy/calver/nuget@main
+        with:
+          project: core/lib/NiceShell.Core
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
