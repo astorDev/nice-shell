@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="core/lib/NiceShell.Core.csproj" />
+  <Project Path="core/play/NiceShell.Core.Playground.csproj" />
   <Project Path="clis/lib/NiceShell.Cli.csproj" />
   <Project Path="clis/template/Template.Cli.csproj" />
 </Solution>
