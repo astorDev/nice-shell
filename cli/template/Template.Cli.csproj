@@ -10,12 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NiceShell.Cli" Version="2026.106.104.1-template-101" />
+    <PackageReference Include="NiceShell.Cli" Version="2026.108.101.3-cli-template-using-core-lib" />
+    <PackageReference Include="NiceShell.Logger" Version="2026.108.101.2-cli-template-using-core-lib" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="System.CommandLine" />
-    <Using Include="NiceShell"/>
+    <Using Include="NiceShell" />
   </ItemGroup>
 
 </Project>

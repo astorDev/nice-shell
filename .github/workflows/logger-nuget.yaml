@@ -1,9 +1,9 @@
-name: NiceShell.Cli Nuget
+name: Logger Nuget
 on:
   push:
     paths:
-      - 'cli/lib/**'
-      - '.github/workflows/cli-nuget.yaml'
+      - 'logger/lib/**'
+      - '.github/workflows/logger-nuget.yaml'
   workflow_dispatch:
 
 jobs:
@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: astorDev/versy/calver/nuget@main
         with:
-          project: cli/lib/NiceShell.Cli
+          project: logger/lib/NiceShell.Logger
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}

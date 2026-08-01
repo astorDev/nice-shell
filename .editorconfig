@@ -6,3 +6,6 @@ dotnet_diagnostic.CA1010.severity = none
 
 # CA1050: Declare types in namespaces
 dotnet_diagnostic.CA1050.severity = none
+
+# CA1873: Avoid potentially expensive logging
+dotnet_diagnostic.CA1873.severity = silent

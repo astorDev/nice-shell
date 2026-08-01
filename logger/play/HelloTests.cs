@@ -1,4 +1,4 @@
-namespace NiceShellCore.Playground;
+namespace NiceShell.Logger.Playground;
 
 [TestClass]
 public class HelloTests
@@ -8,8 +8,7 @@ public class HelloTests
     {
         var hello = "Hello, Tests!";
 
-        NiceShell.Console.WriteLogLine(hello);
-        NiceShell.Console.WriteOutputLine(hello);
+        Console.WriteLine(hello);
 
         hello.ShouldBe("Hello, Tests!");
     }

@@ -1,5 +1,7 @@
+ARGS ?= template . --name John
+
 run:
-	dotnet run -- template . --name John
+	dotnet run -- $(ARGS)
 
 install:
 	dotnet pack -c Release

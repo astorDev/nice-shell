@@ -1,5 +1,6 @@
 using System.CommandLine;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace NiceShell;
 
@@ -7,9 +8,21 @@ public class CliBuilder
 {
     public IServiceCollection Services { get; } = new ServiceCollection();
 
+    public ILoggingBuilder Logging { get; }
+
     public void AddCommand<TCommand>() where TCommand : Command
     {
         Services.AddScoped<Command, TCommand>();
+    }
+
+    public CliBuilder()
+    {
+        Services.AddLogging(l =>
+        {
+            l.SetMinimumLevel(LogLevel.Trace);
+        });
+        
+        Logging = new LoggingBuilder(Services);
     }
 
     public Cli Build(string rootCommandDescription)
@@ -22,5 +35,10 @@ public class CliBuilder
         foreach (var command in allCommands) rootCommand.Subcommands.Add(command);
 
         return new Cli(rootCommand, scope);
+    }
+
+    class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
+    {
+        public IServiceCollection Services { get; } = services;
     }
 }

@@ -1,5 +1,7 @@
-public class TemplateCommand : Command
+public class ExampleCommand : Command
 {
+    private readonly ILogger<ExampleCommand> logger;
+
     private readonly Option<string> nameOption = new("--name")
     {
         Description = "The name of the person to greet.",
@@ -12,11 +14,12 @@ public class TemplateCommand : Command
         Arity = ArgumentArity.ExactlyOne
     };
 
-    public TemplateCommand() : base("template", "Greet a person by name.")
+    public ExampleCommand(ILogger<ExampleCommand> logger) : base("example", "Greet a person by name.")
     {
         Add(pathArgument);
         Add(nameOption);
         SetAction(Execute);
+        this.logger = logger;
     }
 
     private void Execute(ParseResult parseResult)
@@ -24,7 +27,15 @@ public class TemplateCommand : Command
         var name = parseResult.GetRequiredValue(nameOption);
         var path = parseResult.GetRequiredValue(pathArgument);
 
+        logger.LogTrace("Greeting {Name}...", name);
+        System.Console.Error.Flush();
+
         Console.WriteLine($"Hello, {name}!");
+
+        logger.LogInformation("Greeted {Name} successfully.", name);
+
+        logger.LogInformation("Getting files from the path: {Path}", path);
+
         Console.WriteLine($"ls from the path you've provided:");
         Directory.GetFileSystemEntries(path)
             .Select(Path.GetFileName)
