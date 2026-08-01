@@ -2,7 +2,7 @@ name: NiceShell.Cli Nuget
 on:
   push:
     paths:
-      - 'clis/lib/**'
+      - 'cli/lib/**'
       - '.github/workflows/cli-nuget.yaml'
   workflow_dispatch:
 
@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: astorDev/versy/calver/nuget@main
         with:
-          project: clis/lib/NiceShell.Cli
+          project: cli/lib/NiceShell.Cli
           nuget-api-key: ${{ secrets.NUGET_API_KEY }}
