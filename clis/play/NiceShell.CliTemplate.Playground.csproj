@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="MSTest" Version="3.9.1" />
-    <PackageReference Include="NiceShell.Logger" Version="2026.108.101.1-cli-template-using-core-lib" />
+    <PackageReference Include="NiceShell.Logger" Version="2026.108.101.2-cli-template-using-core-lib" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 TEST ?= main
+ARGS ?= example --name Egor .
 
 run:
 	dotnet run -- $(ARGS)

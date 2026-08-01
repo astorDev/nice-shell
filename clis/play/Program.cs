@@ -3,7 +3,7 @@ global using System.CommandLine;
 
 var builder = new CliBuilder();
 
-builder.Logging.AddNiceShellConsole();
+builder.Logging.AddNiceShell();
 
 builder.AddCommand<ExampleCommand>();
 
