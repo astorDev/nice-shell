@@ -8,8 +8,8 @@ public class HelloTests
     {
         var hello = "Hello, Tests!";
 
-        NiceShell.WriteLogLine(hello);
-        NiceShell.WriteOutputLine(hello);
+        NiceShell.Console.WriteLogLine(hello);
+        NiceShell.Console.WriteOutputLine(hello);
 
         hello.ShouldBe("Hello, Tests!");
     }

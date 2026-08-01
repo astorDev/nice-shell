@@ -25,6 +25,8 @@ public class TemplateCommand : Command
         var path = parseResult.GetRequiredValue(pathArgument);
 
         Console.WriteLine($"Hello, {name}!");
+
+        Console.WriteLine($"Hello, {name}!");
         Console.WriteLine($"ls from the path you've provided:");
         Directory.GetFileSystemEntries(path)
             .Select(Path.GetFileName)

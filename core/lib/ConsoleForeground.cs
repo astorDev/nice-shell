@@ -1,4 +1,6 @@
-﻿public class ConsoleForeground
+﻿namespace NiceShell;
+
+public class ConsoleForeground
 {
     private readonly static object sync = new();
 
@@ -13,8 +15,8 @@
 
     public static IDisposable Push(ConsoleColor color)
     {
-        var previousColor = Console.ForegroundColor;
-        Console.Error.Write(GetAnsiCode(color));
+        var previousColor = System.Console.ForegroundColor;
+        System.Console.Error.Write(GetAnsiCode(color));
         return new Scope(previousColor);
     }
 
@@ -41,8 +43,8 @@
     {
         public void Dispose()
         {
-            Console.Error.Write(GetAnsiCode(previousColor));
-            Console.ForegroundColor = previousColor;
+            System.Console.Error.Write(GetAnsiCode(previousColor));
+            System.Console.ForegroundColor = previousColor;
         }
     }
 }

@@ -1,9 +1,11 @@
-NiceShell.WriteLogLine("Calculating the output list");
-NiceShell.WriteOutputLine("Line 1");
-NiceShell.WriteOutputLine("Line 2");
+using Console = NiceShell.Console;
 
-NiceShell.WriteLogLine("Calculating single output 1");
-NiceShell.WriteOutputAndNewLogLine("Single Line Output");
+Console.WriteLogLine("Calculating the output list");
+Console.WriteOutputLine("Line 1");
+Console.WriteOutputLine("Line 2");
 
-NiceShell.WriteWarningLine("Calculating something dangerous");
-NiceShell.WriteOutputAndNewLogLine("Something dangerous");
+Console.WriteLogLine("Calculating single output 1");
+Console.WriteOutputAndNewLogLine("Single Line Output");
+
+Console.WriteWarningLine("Calculating something dangerous");
+Console.WriteOutputAndNewLogLine("Something dangerous");
