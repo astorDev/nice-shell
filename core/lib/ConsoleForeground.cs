@@ -2,9 +2,9 @@
 
 public class ConsoleForeground
 {
-    private readonly static object sync = new();
+    private readonly static Lock sync = new();
 
-    private static string GetAnsiCode(ConsoleColor color) => color switch
+    public static string GetAnsiCode(ConsoleColor color) => color switch
     {
         ConsoleColor.Cyan => "\x1b[36m",
         ConsoleColor.Red => "\x1b[31m",

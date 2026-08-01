@@ -1,4 +1,6 @@
-﻿var builder = new CliBuilder();
+﻿//global using Console = NiceShell.Console;
+
+var builder = new CliBuilder();
 
 builder.AddCommand<TemplateCommand>();
 
