@@ -1,0 +1,17 @@
+name: NiceShell.Cli.Template Nuget
+on:
+  push:
+    paths:
+      - 'clis/template/**'
+      - '.github/workflows/cli-template-nuget.yaml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Pack & Publish nuget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: astorDev/versy/calver/nuget@main
+        with:
+          project: clis/template/NiceShell.Cli.Template
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
