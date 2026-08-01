@@ -1,6 +1,4 @@
-﻿//global using Console = NiceShell.Console;
-
-var builder = new CliBuilder();
+﻿var builder = new CliBuilder();
 
 builder.Logging.AddNiceShell();
 

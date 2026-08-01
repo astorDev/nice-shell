@@ -127,6 +127,7 @@ public class NiceShellFormatter(IOptions<NiceShellConsoleFormatterSettings> opti
 
         textWriter.Write(DefaultForegroundColor);
         textWriter.WriteLine();
+    }
 }
 
 /// <summary>
