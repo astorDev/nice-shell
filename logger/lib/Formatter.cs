@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
@@ -7,8 +8,18 @@ namespace NiceShell;
 
 public static class NiceShellConsoleLoggerExtensions
 {
-    public static ILoggingBuilder AddNiceShellConsole(this ILoggingBuilder builder, Action<NiceShellConsoleFormatterSettings>? configure = null)
+    public static ILoggingBuilder AddNiceShell(this ILoggingBuilder builder, Action<NiceShellConsoleFormatterSettings>? configure = null)
     {
+        var settings = new NiceShellConsoleFormatterSettings();
+        configure?.Invoke(settings);
+
+        if (settings.WriteImmediately)
+        {
+            builder.Services.Configure<NiceShellConsoleFormatterSettings>(o => configure?.Invoke(o));
+            builder.Services.AddSingleton<ILoggerProvider, NiceShellImmediateLoggerProvider>();
+            return builder;
+        }
+
         builder.AddConsole(c => {
             c.LogToStandardErrorThreshold = LogLevel.None;
             c.FormatterName = NiceShellFormatter.FormatterName;
@@ -29,6 +40,13 @@ public class NiceShellConsoleFormatterSettings : ConsoleFormatterOptions
     public bool IncludeCategory { get; set; } = false;
 
     public bool IncludeLogLevel { get; set; } = false;
+
+    /// <summary>
+    /// By-passes ConsoleLogger's queuing technique and writes to console immediately.
+    /// Needed for cases like CLI where logs need to be in-sync with normal output.
+    /// Default is true.
+    /// </summary>
+    public bool WriteImmediately { get; set; } = true;
 
     public NiceShellConsoleFormatterSettings()
     {
@@ -103,5 +121,34 @@ public class NiceShellFormatter(IOptions<NiceShellConsoleFormatterSettings> opti
         textWriter.Write(DefaultForegroundColor);
 
         textWriter.WriteLine();
+    }
+}
+
+/// <summary>
+/// By-passes ConsoleLogger's queuing technique and writes to console immediately.
+/// Needed for cases like CLI where logs need to be in-sync with normal output.
+/// </summary>
+public class NiceShellImmediateLoggerProvider(IOptions<NiceShellConsoleFormatterSettings> options) : ILoggerProvider
+{
+    // Reuses NiceShellFormatter's core writer logic instead of duplicating it.
+    private readonly NiceShellFormatter formatter = new(options);
+
+    public ILogger CreateLogger(string categoryName) => new ImmediateLogger(categoryName, formatter);
+
+    public void Dispose() { }
+
+    class ImmediateLogger(string category, NiceShellFormatter formatter) : ILogger
+    {
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatterFn)
+        {
+            var entry = new LogEntry<TState>(logLevel, category, eventId, state, exception, formatterFn);
+            
+            formatter.Write(in entry, null, Console.Error);
+            Console.Error.Flush();
+        }
     }
 }

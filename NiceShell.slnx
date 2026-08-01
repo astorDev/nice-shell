@@ -1,6 +1,11 @@
 <Solution>
   <Project Path="core/lib/NiceShell.Core.csproj" />
   <Project Path="core/play/NiceShell.Core.Playground.csproj" />
+  <Folder Name="/clis/" />
+  <Folder Name="/clis/lib/" />
+  <Folder Name="/clis/play/">
+    <Project Path="clis/play/NiceShell.CliTemplate.Playground.csproj" />
+  </Folder>
   <Folder Name="/logger/" />
   <Folder Name="/logger/lib/">
     <Project Path="logger/lib/NiceShell.Logger.csproj" />
