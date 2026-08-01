@@ -2,7 +2,7 @@ name: NiceShell.Cli.Template Nuget
 on:
   push:
     paths:
-      - 'clis/template/**'
+      - 'clis/**'
       - '.github/workflows/cli-template-nuget.yaml'
   workflow_dispatch:
 
