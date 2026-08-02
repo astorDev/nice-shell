@@ -4,6 +4,9 @@ ARGS ?= example --name Egor .
 run:
 	dotnet run -- $(ARGS)
 
+run-alt:
+	$(MAKE) run ARGS="alt --message Howdy"
+
 play:
 	bash -c -i 'make run & sleep 5 && make yac && kill -INT %1'
 
