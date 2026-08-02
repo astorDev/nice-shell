@@ -56,7 +56,7 @@ public class CliBuilder
     }
 }
 
-public class CommandProxy : Command
+internal sealed class CommandProxy : Command
 {
     public CommandProxy(Command wrapped, string overrideName) : base(overrideName, wrapped.Description)
     {
