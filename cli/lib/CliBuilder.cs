@@ -10,9 +10,22 @@ public class CliBuilder
 
     public ILoggingBuilder Logging { get; }
 
-    public void AddCommand<TCommand>() where TCommand : Command
+    public void AddCommand<TCommand>(string? nameOverride = null) where TCommand : Command
     {
-        Services.AddScoped<Command, TCommand>();
+        Services.AddScoped<TCommand>();
+        
+        if (nameOverride == null)
+        {
+            Services.AddScoped<Command, TCommand>();
+        }
+        else
+        {
+            Services.AddScoped<Command>(sp => 
+            {
+                var command = sp.GetRequiredService<TCommand>();
+                return new CommandProxy(command, nameOverride);
+            });
+        }
     }
 
     public CliBuilder()
@@ -40,5 +53,20 @@ public class CliBuilder
     class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
     {
         public IServiceCollection Services { get; } = services;
+    }
+}
+
+internal sealed class CommandProxy : Command
+{
+    public CommandProxy(Command wrapped, string overrideName) : base(overrideName, wrapped.Description)
+    {
+        foreach (var subcommand in wrapped.Subcommands) Subcommands.Add(subcommand);
+        foreach (var option in wrapped.Options) Options.Add(option);
+        foreach (var argument in wrapped.Arguments) Arguments.Add(argument);
+        foreach (var alias in wrapped.Aliases) Aliases.Add(alias);
+
+        Action = wrapped.Action;
+        Hidden = wrapped.Hidden;
+        TreatUnmatchedTokensAsErrors = wrapped.TreatUnmatchedTokensAsErrors;
     }
 }
