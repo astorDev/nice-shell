@@ -23,9 +23,21 @@ public class CliBuilder
             Services.AddScoped<Command>(sp => 
             {
                 var command = sp.GetRequiredService<TCommand>();
-                return new CommandProxy(command, nameOverride);
+                return new CommandRenameProxy(command, nameOverride);
             });
         }
+    }
+
+    public void AddAsRootCommand<TCommand>(string? descriptionOverwrite = null) where TCommand : Command
+    {
+        Services.AddScoped<TCommand>();
+        Services.AddScoped<RootCommand>(sp =>
+        {
+            var command = sp.GetRequiredService<TCommand>();
+            var description = descriptionOverwrite ?? command.Description ?? throw new InvalidOperationException($"Command {typeof(TCommand).Name} has no description and no description override was provided.");
+            
+            return new CommandRootingProxy(command, description);
+        });
     }
 
     public CliBuilder()
@@ -38,13 +50,26 @@ public class CliBuilder
         Logging = new LoggingBuilder(Services);
     }
 
-    public Cli Build(string rootCommandDescription)
+    /// <summary>
+    /// Builds the CLI application with the registered commands and services. 
+    /// If no root command is pre-registered, a new root command will be created using the provided description.
+    /// </summary>
+    /// <param name="rootCommandDescription">Description of the root command. Required and used if no root command is pre-registered.</param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public Cli Build(string? rootCommandDescription = null)
     {
         var services = Services.BuildServiceProvider();
         var scope = services.CreateScope();
+        var preregisteredRootCommand = scope.ServiceProvider.GetService<RootCommand>();
+        if (preregisteredRootCommand != null)
+        {
+            return new Cli(preregisteredRootCommand, scope);
+        }
+
         var allCommands = scope.ServiceProvider.GetServices<Command>();
 
-        var rootCommand = new RootCommand(rootCommandDescription);
+        var rootCommand = new RootCommand(rootCommandDescription ?? throw new InvalidOperationException("Providing a root command description is required, where no command is registered as root."));
         foreach (var command in allCommands) rootCommand.Subcommands.Add(command);
 
         return new Cli(rootCommand, scope);
@@ -56,9 +81,24 @@ public class CliBuilder
     }
 }
 
-internal sealed class CommandProxy : Command
+internal sealed class CommandRenameProxy : Command
 {
-    public CommandProxy(Command wrapped, string overrideName) : base(overrideName, wrapped.Description)
+    public CommandRenameProxy(Command wrapped, string overrideName) : base(overrideName, wrapped.Description)
+    {
+        foreach (var subcommand in wrapped.Subcommands) Subcommands.Add(subcommand);
+        foreach (var option in wrapped.Options) Options.Add(option);
+        foreach (var argument in wrapped.Arguments) Arguments.Add(argument);
+        foreach (var alias in wrapped.Aliases) Aliases.Add(alias);
+
+        Action = wrapped.Action;
+        Hidden = wrapped.Hidden;
+        TreatUnmatchedTokensAsErrors = wrapped.TreatUnmatchedTokensAsErrors;
+    }
+}
+
+internal sealed class CommandRootingProxy : RootCommand
+{
+    public CommandRootingProxy(Command wrapped, string description) : base(description)
     {
         foreach (var subcommand in wrapped.Subcommands) Subcommands.Add(subcommand);
         foreach (var option in wrapped.Options) Options.Add(option);
