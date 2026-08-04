@@ -5,6 +5,8 @@ namespace NiceShell;
 
 public class Cli(RootCommand rootCommand, IServiceScope scope) : IDisposable
 {
+    public IServiceProvider Services { get; } = scope.ServiceProvider;
+
     public int Run(string[] args)
     {
         ParseResult parseResult = rootCommand.Parse(args);
