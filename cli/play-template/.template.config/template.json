@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Astor",
+    "classifications": [ "CLI", "Playground" ], 
+    "name": "CLI Playground",
+    "identity": "cli-play",         
+    "shortName": "cli-play",
+    "tags": {
+      "language": "C#",
+      "type":"project"
+    },
+    "sourceName": "Template",
+    "preferNameDirectory": true
+}

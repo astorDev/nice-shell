@@ -2,6 +2,7 @@
   <Project Path="core/lib/NiceShell.Core.csproj" />
   <Project Path="core/play/NiceShell.Core.Playground.csproj" />
   <Project Path="cli/play/NiceShell.CliTemplate.Playground.csproj" />
+  <Project Path="cli/play-template/Template.Playground.csproj" />
   <Project Path="cli/lib/NiceShell.Cli.csproj" />
   <Project Path="cli/template/Template.Cli.csproj" />
   <Project Path="logger/lib/NiceShell.Logger.csproj" />
