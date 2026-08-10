@@ -24,6 +24,7 @@
     <Using Include="Shouldly" />
     <Using Include="System.CommandLine" />
     <Using Include="NiceShell" />
+    <Using Include="Playground" />
   </ItemGroup>
 
 </Project>
