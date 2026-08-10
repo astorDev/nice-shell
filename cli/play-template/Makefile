@@ -1,5 +1,5 @@
 TEST ?= main
-ARGS ?= template . --name John
+ARGS ?= command-name . --name John
 
 run:
 	dotnet run -- $(ARGS)
@@ -15,4 +15,4 @@ run-v:
 	make run
 
 test:
-	dotnet test --filter FullyQualifiedName~Template.Playground.Playground.$(NAME) --logger "console;verbosity=detailed"
+	dotnet test --filter FullyQualifiedName~Playground.$(NAME) --logger "console;verbosity=detailed"
