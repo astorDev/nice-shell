@@ -1,4 +1,4 @@
-namespace Template.Playground.Playground;
+namespace Playground;
 
 [TestClass]
 public class SmokeTests

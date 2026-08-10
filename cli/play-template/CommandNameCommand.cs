@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Logging;
 
+namespace Playground;
+
 public class CommandNameCommand : Command
 {
     private readonly Option<string> nameOption = new("--name")
@@ -16,7 +18,7 @@ public class CommandNameCommand : Command
     
     private readonly ILogger<CommandNameCommand> logger;
 
-    public CommandNameCommand(ILogger<CommandNameCommand> logger) : base("template", "Greet a person by name.")
+    public CommandNameCommand(ILogger<CommandNameCommand> logger) : base("command-name", "Greet a person by name.")
     {
         Add(pathArgument);
         Add(nameOption);

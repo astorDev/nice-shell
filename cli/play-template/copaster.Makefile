@@ -1,4 +1,5 @@
 COMMAND ?= MyCommandName
 
 main:
-	replace CommandName $(COMMAND)
+	replace --all-cases CommandName $(COMMAND)
+	rm -rf copaster.Makefile
