@@ -1,4 +1,3 @@
-TEST ?= main
 ARGS ?= command-name . --name John
 
 run:
