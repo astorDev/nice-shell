@@ -37,7 +37,7 @@ public class RunCommand : Command
 
         await Shell.Sh
             .Proxy(command)
-            .WithConsoleForwarding()
+            .WithDimmedConsoleForwarding()
             .ExecuteAsync();
     }
 }
