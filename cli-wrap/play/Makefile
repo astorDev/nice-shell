@@ -1,7 +1,7 @@
-ARGS ?= run . --name John
+ARGS ?= echo
 
 run:
-	dotnet run -- $(ARGS)
+	dotnet run -- run $(ARGS)
 
 apply-v:
 	cp Versions/$(V)/Program.cs Program.cs

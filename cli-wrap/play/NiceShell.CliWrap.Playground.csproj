@@ -11,6 +11,10 @@
     <Compile Remove="Versions\**\*.cs" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);7022</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="MSTest" Version="3.9.1" />
