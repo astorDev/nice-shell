@@ -91,3 +91,68 @@ clear
 ```sh
 printf '\033[2J\033[H'
 ```
+
+## Advanced Commands: RGB and Dimming
+
+With the most important one: 
+
+- `0` Resets all the settings to default
+
+So we can always get a fresh start with:
+
+```sh
+printf '\033[0m'
+```
+
+- `2` - dimmed
+- `3` - italic
+- `4` - underlined
+
+```sh
+printf '\033[2m'
+printf '\033[3m'
+printf '\033[4m'
+```
+
+- `38` - Set custom foreground colors. Has 2 modes:
+  - `38;5` - 255 range. Next number: the color
+  - `38;2` - RGB. Next 3 numbers: red;green;blue
+
+```sh
+printf '\033[38;5;100m'
+printf '\033[38;5;101m'
+printf '\033[38;5;102m'
+printf '\033[38;5;103m'
+printf '\033[38;5;104m'
+printf '\033[38;5;105m'
+printf '\033[38;5;106m'
+printf '\033[38;5;107m'
+printf '\033[38;5;108m'
+printf '\033[38;5;109m'
+printf '\033[38;5;110m'
+```
+
+![](255-rainbow.png)
+
+```sh
+printf '\033[38;2;255;165;0m'
+printf '\033[38;2;245;175;0m'
+printf '\033[38;2;235;185;0m'
+printf '\033[38;2;225;195;0m'
+printf '\033[38;2;215;205;0m'
+printf '\033[38;2;210;210;0m'
+printf '\033[38;2;255;255;0m'
+printf '\033[38;2;0m'
+```
+
+![](orange-to-yellow.png)
+
+Let's conclude!
+
+## TL;DR
+
+In this article we've seen how and why we can use different code with `printf '\033[<COMMANDS>m'` to change appearence of the next things that are printed to our terminal. From built-in colors within 30-37 range, to underscore and RGBs, we've takes a look at the commands of various complexity and versitality.
+
+This article, is part of the [nice-shell repository](https://github.com/astorDev/nice-shell), trying to help your shell experience be nicer. Click on the [github link](https://github.com/astorDev/nice-shell) to see other goodies it has to offer and don't hesitate to give the repository a star! ⭐
+
+Claps for this article are also appreciated! 😊
