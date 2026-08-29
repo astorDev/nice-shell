@@ -2,7 +2,7 @@
 
 > Colorize your console background, make text green, magenta, or even dimmed.
 
-![thumb.png](No More Boring Command Lines!)
+![No More Boring Command Lines!](thumb.png)
 
 Since our first "Hello, World!" we programmers use the terminal (or console if you are on Windows). Sometimes, however, it takes years (took 8 in my case) to realize that command-line apps can be more than just black and white and that we can use it to make communication with CLI applications more enjoyable. 
 
