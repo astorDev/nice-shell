@@ -10,17 +10,32 @@ Unfortunately, we can't just do something like `[green:Text in green]` and expec
 
 ## Jump Start
 
+Let's get straight to the chase and print something in color. Let's use the following command:
+
 ```sh
 printf '\033[33mText In Yellow\033[0m\n'
 ```
 
+> ⚠️ Windows users: The examples in this article use printf, a Unix/POSIX command that isn't available as the same command in native Windows shells such as cmd.exe or PowerShell. If you're on Windows, use Git Bash or WSL instead. The rest of the article assumes you're using a Unix-compatible shell.
+
+If everything goes smoothly you should see an output like this:
+
 ![Text In Yellow](text-in-yellow.png)
 
-- `\033[33m` - Made text yellow
-- `\033[0m` - Returned it to Defaults
+So what's just happened? 
+
+We used `printf` to send input to terminal. Noticably, we also have sent not just literal text, but also commands. We can roughly, split our input in 4 parts:
+
+- `\033[33m` - Command to set foreground color to yellow.
+- `Text In Yellow` - Literal string. Could be anything, doesn't have any effect on the presentation.
+- `\033[0m` - Command to reset all "effects". Including foreground color change.
 - `\n` - Newline
 
+On a fundamental level, this covers how to manipulate terminal colors. But you probably want more then only making text yellow, right? Let's go to the next session!
+
 ## What Colors Do We Have?
+
+> The variable change only affects the current shell session
 
 ```sh
 PS1='\W> '
