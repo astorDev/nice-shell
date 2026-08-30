@@ -3,10 +3,15 @@
   <Project Path="core/play/NiceShell.Core.Playground.csproj" />
   <Project Path="cli/play/NiceShell.CliTemplate.Playground.csproj" />
   <Project Path="cli/play-template/Template.Playground.csproj" />
+  <Folder Name="/proxy/" />
+  <Folder Name="/proxy/lib/">
+    <Project Path="proxy/lib/NiceShell.Proxy.csproj" />
+  </Folder>
   <Project Path="cli-wrap/lib/NiceShell.CliWrap.csproj" />
   <Project Path="cli-wrap/play/NiceShell.CliWrap.Playground.csproj" />
   <Project Path="cli/lib/NiceShell.Cli.csproj" />
   <Project Path="cli/template/Template.Cli.csproj" />
   <Project Path="logger/lib/NiceShell.Logger.csproj" />
   <Project Path="logger/play/NiceShell.Logger.Playground.csproj" />
+  <Project Path="proxy/play/NiceShell.Proxy.Playground.csproj" />
 </Solution>
