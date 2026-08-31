@@ -4,7 +4,7 @@ namespace NiceShell;
 
 public static class ProcessHelper
 {
-    public static ProcessStartInfo ProxyProcessStartInfo(this Shell shell, string command)
+    public static ProcessStartInfo ProxyProcessStartInfo(this Shell shell, string command, Action<ProcessStartInfo>? configure = null)
     {
         var startInfo = new ProcessStartInfo
         {
@@ -17,6 +17,7 @@ public static class ProcessHelper
         }
 
         startInfo.ArgumentList.Add(command);
+        configure?.Invoke(startInfo);
 
         return startInfo;
     }
