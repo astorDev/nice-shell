@@ -2,7 +2,7 @@
 
 builder.Logging.AddNiceShell();
 
-builder.AddCommand<CommandNameCommand>();
+builder.AddAsRootCommand<CommandNameCommand>();
 
 using var app = builder.Build("A template CLI application.");
 

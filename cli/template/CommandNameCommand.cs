@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Logging;
 
+namespace ProjectName;
+
 public class CommandNameCommand : Command
 {
     private readonly Option<string> nameOption = new("--name")
