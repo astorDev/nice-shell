@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 
-public class TemplateCommand : Command
+public class CommandNameCommand : Command
 {
     private readonly Option<string> nameOption = new("--name")
     {
@@ -13,9 +13,9 @@ public class TemplateCommand : Command
         Description = "The path from which to read files.",
         Arity = ArgumentArity.ExactlyOne
     };
-    private readonly ILogger<TemplateCommand> logger;
+    private readonly ILogger<CommandNameCommand> logger;
 
-    public TemplateCommand(ILogger<TemplateCommand> logger) : base("template", "Greet a person by name.")
+    public CommandNameCommand(ILogger<CommandNameCommand> logger) : base("template", "Greet a person by name.")
     {
         Add(pathArgument);
         Add(nameOption);
