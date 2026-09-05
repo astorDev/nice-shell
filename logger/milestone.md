@@ -1,0 +1,2 @@
+- [ ] Add `--verbosity` logic in `NiceShell.Logging`
+  - [ ] Show only exception message, when not verbose
