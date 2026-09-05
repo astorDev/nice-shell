@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ProjectName;
 
-public class CommandNameCommand : Command
+public class ExampleCommand : Command
 {
     private readonly Option<string> nameOption = new("--name")
     {
@@ -15,9 +15,9 @@ public class CommandNameCommand : Command
         Description = "The path from which to read files.",
         Arity = ArgumentArity.ExactlyOne
     };
-    private readonly ILogger<CommandNameCommand> logger;
+    private readonly ILogger<ExampleCommand> logger;
 
-    public CommandNameCommand(ILogger<CommandNameCommand> logger) : base("template", "Greet a person by name.")
+    public ExampleCommand(ILogger<ExampleCommand> logger) : base("example", "Greet a person by name.")
     {
         Add(pathArgument);
         Add(nameOption);
