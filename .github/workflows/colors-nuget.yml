@@ -1,0 +1,17 @@
+name: Colors Nuget
+on:
+  push:
+    paths:
+      - 'colors/lib/**'
+      - '.github/workflows/colors-nuget.yaml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Pack & Publish nuget
+    runs-on: ubuntu-latest
+    steps:
+      - uses: astorDev/versy/calver/nuget@main
+        with:
+          project: colors/lib/NiceShell.Colors
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }}
