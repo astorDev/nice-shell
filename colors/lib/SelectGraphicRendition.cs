@@ -2,7 +2,7 @@ namespace NiceShell;
 
 public static partial class SelectGraphicRendition
 {
-    public const char Escape = '\u001b';
+    public const char Escape = '\x1B';
     public const char Introducer = '[';
     public static readonly string Start = new([Escape, Introducer]);
     public const char TypeLetter = 'm';

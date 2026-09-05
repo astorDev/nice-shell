@@ -34,6 +34,10 @@ app.Logger.LogInformation("Finished counting to 10!");
 
 app.Logger.LogInformation("Hello from information!");
 
+app.Logger.LogError("Let's say this was an error, but we've continued anyway!");
+
+app.Logger.LogWarning("Here comes logs from ASP .NET Hosting!");
+
 app.MapGet("/", () => new {
     Message = "Hello World!"
 });

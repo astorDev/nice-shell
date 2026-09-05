@@ -59,13 +59,13 @@ public class NiceShellConsoleFormatterSettings : ConsoleFormatterOptions
 public class NiceShellFormatter(IOptions<NiceShellConsoleFormatterSettings> options) : ConsoleFormatter(FormatterName)
 {
     public const string FormatterName = "nice-shell";
-    const string DefaultForegroundColor = "\x1B[39m\x1B[22m";
+    const string DefaultForegroundColor = "\x1B[39m";
 
     public static string GetColorEscapeCode(LogLevel logLevel) => logLevel switch
     {
-        LogLevel.None or LogLevel.Trace or LogLevel.Debug or LogLevel.Information => "\x1B[1m\x1B[36m",
-        LogLevel.Warning => "\x1B[1m\x1B[33m",
-        LogLevel.Error or LogLevel.Critical => "\x1B[1m\x1B[31m",
+        LogLevel.None or LogLevel.Trace or LogLevel.Debug or LogLevel.Information => "\x1B[38;2;0;255;255m",
+        LogLevel.Warning => "\x1B[38;2;255;255;0m",
+        LogLevel.Error or LogLevel.Critical => "\x1B[38;2;255;0;0m",
         _ => throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, null),
     };
 

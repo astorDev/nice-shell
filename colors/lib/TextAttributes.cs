@@ -9,7 +9,7 @@ public enum SgrTextAttributes
 
 public static partial class SelectGraphicRendition
 {
-    public const string Bold = "\u001b[1m";
-    public const string Dim = "\u001b[2m";
-    public const string NormalIntensity = "\u001b[22m";
+    public const string Bold = "\x1B[1m";
+    public const string Dim = "\x1B[2m";
+    public const string NormalIntensity = "\x1B[22m";
 }

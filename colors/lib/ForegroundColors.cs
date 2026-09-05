@@ -23,21 +23,28 @@ public enum SgrForegroundColors
 
 public static partial class SelectGraphicRendition
 {
-    public const string Black = "\u001b[30m";
-    public const string Red = "\u001b[31m";
-    public const string Green = "\u001b[32m";
-    public const string Yellow = "\u001b[33m";
-    public const string Blue = "\u001b[34m";
-    public const string Magenta = "\u001b[35m";
-    public const string Cyan = "\u001b[36m";
-    public const string White = "\u001b[37m";
-    public const string Reset = "\u001b[39m";
-    public const string BrightBlack = "\u001b[90m";
-    public const string BrightRed = "\u001b[91m";
-    public const string BrightGreen = "\u001b[92m";
-    public const string BrightYellow = "\u001b[93m";
-    public const string BrightBlue = "\u001b[94m";
-    public const string BrightMagenta = "\u001b[95m";
-    public const string BrightCyan = "\u001b[96m";
-    public const string BrightWhite = "\u001b[97m";
+    public const string Black = "\x1B[30m";
+    public const string Red = "\x1B[31m";
+    public const string Green = "\x1B[32m";
+    public const string Yellow = "\x1B[33m";
+    public const string Blue = "\x1B[34m";
+    public const string Magenta = "\x1B[35m";
+    public const string Cyan = "\x1B[36m";
+    public const string White = "\x1B[37m";
+    public const string Reset = "\x1B[39m";
+    public const string BrightBlack = "\x1B[90m";
+    public const string BrightRed = "\x1B[91m";
+    public const string BrightGreen = "\x1B[92m";
+    public const string BrightYellow = "\x1B[93m";
+    public const string BrightBlue = "\x1B[94m";
+    public const string BrightMagenta = "\x1B[95m";
+    public const string BrightCyan = "\x1B[96m";
+    public const string BrightWhite = "\x1B[97m";
+
+    public const string RgbMaxedCyan = "\x1B[38;2;0;255;255m";
+    public const string RgbMaxedRed = "\x1B[38;2;255;0;0m";
+    public const string RgbMaxedGreen = "\x1B[38;2;0;255;0m";
+    public const string RgbMaxedBlue = "\x1B[38;2;0;0;255m";
+    public const string RgbMaxedYellow = "\x1B[38;2;255;255;0m";
+    public static string ForegroundRgb(int r, int g, int b) => $"\x1B[38;2;{r};{g};{b}m";
 }
