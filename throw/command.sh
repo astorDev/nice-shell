@@ -1,0 +1,6 @@
+#! /bin/sh
+FOREGROUND_MAXED_RED="\x1B[38;2;255;0;0m"
+FOREGROUND_RESET="\x1B[39m"
+
+printf "${FOREGROUND_MAXED_RED}${1}. Exiting...${FOREGROUND_RESET}\n" >&2 
+exit 1
