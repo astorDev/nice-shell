@@ -17,6 +17,5 @@ pr:
 	gh pr create --title "$(TITLE)" --body "" || true
 	gh pr view --web
 
-post-pr:
-	sh ./small/switch-and-delete/.sh
-	git pull
+example:
+	cd small && sh example.sh

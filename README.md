@@ -2,7 +2,7 @@
 
 A project with a goal to make your shell experience nicer.
 
-The fundament of the project is a few handy functions from the `.sh` file:
+The fundament of the project is a few handy functions from the [`.sh` file](./.sh)
 
 - `log` - prints a message in blue in `stderr` (not captured in the result)
 - `ret` - sends a message to `stdout`, a new line to `stderr`, and exits successfully
@@ -17,9 +17,11 @@ source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nic
 
 And here's what the result of using those functions might look like:
 
-![](example-demo.png)
+![](small/example-demo.png)
 
 Below you can check the script producing the result:
+
+> It's also [part of this repository](small/example-curled.sh)
 
 ```sh
 ## Installing the script

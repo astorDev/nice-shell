@@ -1,5 +1,3 @@
-## Installing the script
-# source .sh # for local testing
 source /dev/stdin <<< "$(curl -sS https://raw.githubusercontent.com/astorDev/nice-shell/refs/heads/main/.sh)"
 
 do_light_work() {
