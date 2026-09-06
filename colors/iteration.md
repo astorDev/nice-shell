@@ -1,0 +1,4 @@
+- [ ] 🪲 Fix: Github CI doesn't parse `\x1B[38;2;0;255;255mCalling suffix calculation\x1B[39m` and prints them as is.
+  - [ ] Find out a universally used espace sequence (to work in C# and Github CI)
+  - [ ] Use the escape symbol accross the module.
+  - [ ] Finalize the documentation of the nuances
