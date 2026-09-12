@@ -57,24 +57,42 @@ public class CliBuilder
     /// <param name="rootCommandDescription">Description of the root command. Required and used if no root command is pre-registered.</param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public Cli Build(string? rootCommandDescription = null)
+    public Cli Build(string? rootCommandDescription = null, string[]? args = null)
     {
         var services = Services.BuildServiceProvider();
         var scope = services.CreateScope();
-        var preregisteredRootCommand = scope.ServiceProvider.GetService<RootCommand>();
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Cli>>();
 
-        if (preregisteredRootCommand != null)
+        try
         {
-            return new Cli(preregisteredRootCommand, scope, logger);
+            return BuildCli(scope, logger, rootCommandDescription, args);
+        }
+        catch (Exception ex)
+        {
+            return new Cli(scope, logger, BuildResult.Exception(ex));
+        }
+    }
+
+    private Cli BuildCli(IServiceScope scope, ILogger<Cli> logger, string? rootCommandDescription, string[]? args)
+    {
+        var preregisteredRootCommand = scope.ServiceProvider.GetService<RootCommand>();
+        if (preregisteredRootCommand != null) return new Cli(scope, logger, BuildResult.RootCommandReady(preregisteredRootCommand));
+
+        if (rootCommandDescription == null) throw new InvalidOperationException("Root command description is required when no root command is pre-registered.");
+
+        if (args != null)
+        {
+            var gateResolutionStrategy = new CliGateRootCommandResolutionStrategy(scope, logger, rootCommandDescription, args);
+            var cliFromGate = gateResolutionStrategy.Apply();
+            if (cliFromGate != null) return cliFromGate;
         }
 
         var allCommands = scope.ServiceProvider.GetServices<Command>();
 
-        var rootCommand = new RootCommand(rootCommandDescription ?? throw new InvalidOperationException("Providing a root command description is required, where no command is registered as root."));
+        var rootCommand = new RootCommand(rootCommandDescription);
         foreach (var command in allCommands) rootCommand.Subcommands.Add(command);
 
-        return new Cli(rootCommand, scope, logger);
+        return new Cli(scope, logger, BuildResult.RootCommandReady(rootCommand));
     }
 
     class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
