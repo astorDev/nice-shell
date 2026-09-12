@@ -21,4 +21,4 @@ v-play:
 	make play
 
 test:
-	dotnet test --filter FullyQualifiedName~NiceShell.CliTemplate.Playground.$(NAME) --logger "console;verbosity=detailed"
+	dotnet test --filter FullyQualifiedName~Playground.$(NAME) --logger "console;verbosity=detailed"

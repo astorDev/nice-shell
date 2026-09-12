@@ -62,9 +62,11 @@ public class CliBuilder
         var services = Services.BuildServiceProvider();
         var scope = services.CreateScope();
         var preregisteredRootCommand = scope.ServiceProvider.GetService<RootCommand>();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Cli>>();
+
         if (preregisteredRootCommand != null)
         {
-            return new Cli(preregisteredRootCommand, scope);
+            return new Cli(preregisteredRootCommand, scope, logger);
         }
 
         var allCommands = scope.ServiceProvider.GetServices<Command>();
@@ -72,7 +74,7 @@ public class CliBuilder
         var rootCommand = new RootCommand(rootCommandDescription ?? throw new InvalidOperationException("Providing a root command description is required, where no command is registered as root."));
         foreach (var command in allCommands) rootCommand.Subcommands.Add(command);
 
-        return new Cli(rootCommand, scope);
+        return new Cli(rootCommand, scope, logger);
     }
 
     class LoggingBuilder(IServiceCollection services) : ILoggingBuilder
