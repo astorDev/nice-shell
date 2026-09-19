@@ -35,7 +35,7 @@ public static class NiceShellConsoleLoggerExtensions
 
 public class NiceShellConsoleFormatterSettings : ConsoleFormatterOptions
 {
-    public string WarningPrefix { get; set; } = "⚠️ "; 
+    public string WarningPrefix { get; set; } = "⚠️  "; 
 
     public bool IncludeCategory { get; set; } = false;
 
@@ -80,7 +80,7 @@ public class NiceShellFormatter(IOptions<NiceShellConsoleFormatterSettings> opti
         {
             var time = options.Value.UseUtcTimestamp ? DateTime.UtcNow : DateTime.Now;
             var timestamp = time.ToString(options.Value.TimestampFormat);
-            textWriter.Write($"{timestamp}");
+            textWriter.Write($"{timestamp} ");
             anyPrefix = true;
         }
 
@@ -88,21 +88,20 @@ public class NiceShellFormatter(IOptions<NiceShellConsoleFormatterSettings> opti
         {
             scopeProvider?.ForEachScope((scope, writer) =>
             {
-                writer.Write($" {scope}");
+                writer.Write($"{scope} ");
                 anyPrefix = true;
             }, textWriter);
         }
 
-        
         if (options.Value.IncludeCategory)
         {
-            textWriter.Write($" {logEntry.Category}");
+            textWriter.Write($"{logEntry.Category} ");
             anyPrefix = true;
         }
         
         if (options.Value.IncludeLogLevel)
         {
-            textWriter.Write($" {logEntry.LogLevel}");
+            textWriter.Write($"{logEntry.LogLevel} ");
             anyPrefix = true;
         }
 

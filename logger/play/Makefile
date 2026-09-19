@@ -1,7 +1,7 @@
 TEST ?= main
 
 run:
-	dotnet run
+	dotnet run -- $(ARGS)
 
 kill:
 	kill `lsof -t -i:57625`

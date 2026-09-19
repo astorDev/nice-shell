@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Confi.Clis" Version="2026.109.119.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.10" />
+    <PackageReference Include="System.CommandLine" Version="2.0.12" />
   </ItemGroup>
 
 </Project>
