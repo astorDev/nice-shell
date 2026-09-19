@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="MSTest" Version="3.9.1" />
+    <PackageReference Include="NiceShell.Cli" Version="2026.109.112.16" />
     <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 
