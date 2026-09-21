@@ -1,10 +1,10 @@
-T ?= template
+T ?= .
 
 install-template:
 	dotnet new install $(T)
 
 uninstall-template:
-	dotnet new uninstall $(T)
+	dotnet new uninstall NiceShell.Cli.Templates
 
 reinstall-template:
 	make uninstall-template
