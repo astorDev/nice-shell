@@ -37,7 +37,7 @@ public class CliBuilder
             var description = descriptionOverwrite ?? command.Description ?? throw new InvalidOperationException($"Command {typeof(TCommand).Name} has no description and no description override was provided.");
             
             return new CommandRootingProxy(command, description);
-        });
+        }); 
     }
 
     public CliBuilder()

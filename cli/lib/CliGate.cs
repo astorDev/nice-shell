@@ -14,10 +14,10 @@ public interface ICliGate
     CliGateResult Process(string[] args);
 }
 
-public record CliGateResult(int? ExitCode, IReadOnlyList<Command>? ResolvedCommands)
+public record CliGateResult(int? ExitCode, IReadOnlyList<Command>? ResolvedCommands, string[]? FurtherArgs)
 {
-    public static CliGateResult Stop(int exitCode) => new(exitCode, null);
-    public static CliGateResult ContinueWith(IReadOnlyList<Command> resolvedCommands) => new(null, resolvedCommands);
+    public static CliGateResult Stop(int exitCode) => new(exitCode, null, null);
+    public static CliGateResult ContinueWith(IReadOnlyList<Command> resolvedCommands, string[]? furtherArgs = null) => new(null, resolvedCommands, furtherArgs);
 
     public bool IsStopped => ExitCode.HasValue;
 }
