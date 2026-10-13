@@ -1,3 +1,4 @@
+using System.CommandLine;
 using NiceShell;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,32 +19,43 @@ builder.Logging.AddNiceShell(o =>
 var app = builder.Build();
 
 var logger = app.Logger;
-
-Console.WriteLine("Logging:LogLevel:Default = " + builder.Configuration["Logging:LogLevel:Default"]);
-
-logger.LogDebug("Preparing to output hello in the console!");
-
-Console.WriteLine("Hello!");
-
-logger.LogInformation("Just wrote hello to the console!");
-
-logger.LogTrace("Counting to 3");
-logger.LogWarning("Don't repeat this at home!");
-
-for (int i = 1; i <= 3; i++)
+var root = new RootCommand()
 {
-    Console.WriteLine(i);
+    LoggingCliConfiguration.Options
+};
+
+root.SetAction(pr => Demo());
+await root.Parse(args).InvokeAsync();
+
+void Demo()
+{
+    Console.WriteLine("Logging:LogLevel:Default = " + builder.Configuration["Logging:LogLevel:Default"]);
+
+    logger.LogDebug("Preparing to output hello in the console!");
+
+    Console.WriteLine("Hello!");
+
+    logger.LogInformation("Just wrote hello to the console!");
+
+    logger.LogTrace("Counting to 3");
+    logger.LogWarning("Don't repeat this at home!");
+
+    for (int i = 1; i <= 3; i++)
+    {
+        Console.WriteLine(i);
+    }
+
+    logger.LogDebug("Finished counting to 3!");
+    logger.LogInformation("Hello from information!");
+
+    try
+    {
+        throw new Exception("This is a sample exception");
+    }
+    catch (Exception exception)
+    {
+        logger.LogError(exception, "Let's say this was an error, but we've continued anyway!");
+        logger.LogCritical(exception, "This is a critical error!");
+    }
 }
 
-logger.LogDebug("Finished counting to 3!");
-logger.LogInformation("Hello from information!");
-
-try
-{
-    throw new Exception("This is a sample exception");
-}
-catch (Exception exception)
-{
-    logger.LogError(exception, "Let's say this was an error, but we've continued anyway!");
-    logger.LogCritical(exception, "This is a critical error!");
-}
