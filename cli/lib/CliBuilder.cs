@@ -1,7 +1,3 @@
-using System.CommandLine;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
 namespace NiceShell;
 
 public class CliBuilder
